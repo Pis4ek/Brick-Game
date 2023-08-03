@@ -1,12 +1,45 @@
-using Services.ConfigServiceComponents;
+﻿using Newtonsoft.Json;
 using System;
 using UnityEngine;
 
-public class BrickConfig : ScriptableObject, IConfig
+[Serializable]
+public struct BrickConfig
 {
-    public string KeyID => "cringe";
-    public Type ConfigType => typeof(BrickConfig);
+    public float r;
+    public float g;
+    public float b;
 
+    public int x;
+    public int y;
 
+    public bool[,] shape;
+
+    [JsonIgnore]
+    public Color Color
+    {
+        get
+        {
+            return new Color(r / 255, g / 255, b / 255);
+        }
+        set
+        {
+            r = value.r;
+            g = value.g;
+            b = value.b;
+        }
+    }
+    [JsonIgnore]
+    public Vector2Int LocalCenter
+    {
+        get
+        {
+            return new Vector2Int(x, y);
+        }
+        set
+        {
+            x = value.x;
+            y = value.y;
+        }
+    }
 
 }

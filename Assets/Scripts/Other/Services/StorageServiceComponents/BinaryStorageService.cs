@@ -37,7 +37,7 @@ namespace Services.Storage
 
         private string BuildPath(string key)
         {
-            key += ".json";
+            key += ".save";
             return Path.Combine(Application.persistentDataPath, key);
         }
     }

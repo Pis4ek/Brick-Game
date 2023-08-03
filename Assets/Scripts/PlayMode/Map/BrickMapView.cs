@@ -14,7 +14,7 @@ namespace PlayMode.Map
         {
             _brickMap = brickMap;
 
-            _brickMap.OnValueChanged += UpdateMapView;
+            //_brickMap.OnValueChanged += UpdateMapView;
 
             GenerateMap();
 

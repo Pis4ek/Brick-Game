@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: fe1ffef4de9fc7b4a99133349481d19a
+  m_SerializeEntries:
+  - m_GUID: e87c20138e5d5b04e8d9d4aea68472de
+    m_Address: Ice_Block_Material
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9107888b6fbe49e44ac19e9350ebfe48
+    m_Address: Lava_Block_Material
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 730e10139aed5d649bcd362faa6a39e2
+    m_Address: Obsidian_Block_Material
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cfc1552e3e09a2c46a53cd0568cdb24a
+    m_Address: Stone_Block_Material
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ed67ee4508c47ee4ca99c381a2936993
+    m_Address: Default_Block_Material
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: be588b01e12a01b429b451e098f11f99, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 9acb435451fb7104487a83632eacf0ab, type: 2}
+    - {fileID: 11400000, guid: 2bee3938f4ccca647bf23f03d1fc0ef6, type: 2}

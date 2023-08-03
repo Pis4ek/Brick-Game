@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace Services.Storage
 {
@@ -9,7 +10,7 @@ namespace Services.Storage
         public void Save(string key, object data, Action<bool> callback = null)
         {
             string path = BuildPath(key);
-            string file = JsonUtility.ToJson(data, true);
+            string file = JsonConvert.SerializeObject(data, Formatting.Indented);
 
             using (var fileStream = new StreamWriter(path))
             {
@@ -27,7 +28,7 @@ namespace Services.Storage
             using (var fileStream = new StreamReader(path))
             {
                 string file = fileStream.ReadToEnd();
-                T data = JsonUtility.FromJson<T>(file);
+                T data = JsonConvert.DeserializeObject<T>(file);
                 callback?.Invoke(data);
             }
         }

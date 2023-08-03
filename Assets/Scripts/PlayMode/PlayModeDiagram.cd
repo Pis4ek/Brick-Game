@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PlayMode.Bricks.Brick">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAADIAAACAAEAQIAAAAEAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayMode\Bricks\Brick.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlayMode.Bricks.BrickPart">
+    <Position X="8.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIKCAAAAAAAQAAgAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayMode\Bricks\BrickPart.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlayMode.BrickSpawner">
+    <Position X="3.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAABAACAAEhAAQAAAIAMACAAAACAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayMode\BrickSpawnerElements\BrickSpawner.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlayMode.Map.BlockMap">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAEAQAQAAIAACAAAEAIAMAAUAIAgAAAgAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayMode\Map\BlockMap.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

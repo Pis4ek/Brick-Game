@@ -1,3 +1,4 @@
+using PlayMode;
 using System;
 using UnityEngine;
 
@@ -8,11 +9,19 @@ namespace Services.Timer
         public event Action OnSecondTickedEvent;
         public event Action OnMinuteTickedEvent;
 
-        //public bool IsInitialized { get; private set; } = false;
         public float TimeSinceStart { get; private set; } = 0f;
         public int SecondsSinceStart { get; private set; } = 0;
         public int MinutesSinceStart { get; private set; } = 0;
+        public GameTime GameTime => new GameTime(MinutesSinceStart, SecondsSinceStart);
         public bool TimerStarted { get; private set; } = false;
+
+        public Timer Init(IGameStateEvents gameEvents)
+        {
+            gameEvents.OnGameStartedEvent += StartTimer;
+            gameEvents.OnGameEndedEvent += StopTimer;
+
+            return this;
+        }
 
 
         private void FixedUpdate()
@@ -33,7 +42,12 @@ namespace Services.Timer
             }
         }
 
-        public void StartTimer()
+        private void StartTimer()
+        {
+            TimerStarted = true;
+        }
+
+        private void StopTimer()
         {
             TimerStarted = true;
         }

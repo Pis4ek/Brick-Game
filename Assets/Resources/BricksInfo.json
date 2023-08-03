@@ -1,0 +1,72 @@
+[
+  {
+    "r": 205.0, "g": 25.0, "b": 0.0, //00
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ true, true, true, false ],
+      [ false, false, true, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 6.0, "g": 174.0, "b": 34.0, //01
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ false, true, true, false ],
+      [ false, true, true, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 97.0, "g": 7.0, "b": 173.0, //02
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ true, true, true, true ],
+      [ false, false, false, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 207.0, "g": 12.0, "b": 119.0, //03
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ true, true, false, false ],
+      [ false, true, true, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 0.0, "g": 137.0, "b": 200.0, //04
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ false, true, true, false ],
+      [ true, true, false, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 255, "g": 180.0, "b": 0.0, //05
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ true, true, true, false ],
+      [ true, false, false, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 228, "g": 154.0, "b": 30.0, //05
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ true, true, true, false ],
+      [ false, true, false, false ],
+      [ false, false, false, false ]
+    ]
+  }
+]
