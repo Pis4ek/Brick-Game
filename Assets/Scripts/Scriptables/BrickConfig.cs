@@ -22,9 +22,9 @@ public struct BrickConfig
         }
         set
         {
-            r = value.r;
-            g = value.g;
-            b = value.b;
+            r = value.r * 255;
+            g = value.g * 255;
+            b = value.b * 255;
         }
     }
     [JsonIgnore]

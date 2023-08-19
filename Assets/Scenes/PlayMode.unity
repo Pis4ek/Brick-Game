@@ -141,6 +141,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x1
       objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
       propertyPath: m_CastShadows
@@ -216,10 +221,35 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1507003667}
     m_Modifications:
+    - target: {fileID: 2265932343810512338, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160647792376792997, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5989529129377468662, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169266111103433010, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6878774288397284110, guid: 44768374db11dcf47bb72ac991af677d,
         type: 3}
       propertyPath: m_Name
       value: NextBrickWidget
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878774288397284110, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 6878774288397284111, guid: 44768374db11dcf47bb72ac991af677d,
         type: 3}
@@ -557,6 +587,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -1239,6 +1274,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x1 (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
       propertyPath: m_CastShadows
@@ -1441,6 +1481,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x1 (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
       propertyPath: m_CastShadows
@@ -1509,89 +1554,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2144741819}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &157300133
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 157300134}
-  - component: {fileID: 157300137}
-  - component: {fileID: 157300136}
-  m_Layer: 0
-  m_Name: BG
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
---- !u!4 &157300134
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 157300133}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.124}
-  m_LocalScale: {x: 25.5, y: 25.5, z: 25.5}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 2094731795}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &157300136
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 157300133}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: f3da5fc081e79644bae55b9625fdd819, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &157300137
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 157300133}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &161645874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1688,6 +1650,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -1908,6 +1875,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
 --- !u!1 &197406101
@@ -2058,6 +2030,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (41)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &213128839
@@ -2071,6 +2048,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -2529,6 +2511,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x1 (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
       propertyPath: m_CastShadows
@@ -2921,6 +2908,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -3955,6 +3947,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1 &320492541
@@ -4151,6 +4148,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!4 &326134876 stripped
@@ -4319,6 +4321,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
 --- !u!1001 &357620869
@@ -4393,6 +4400,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x2 (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
 --- !u!4 &377470323 stripped
@@ -4412,6 +4424,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -4650,6 +4667,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!4 &413043483 stripped
@@ -4729,6 +4751,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -5127,6 +5154,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -5545,6 +5577,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -6144,6 +6181,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
       propertyPath: m_CastShadows
@@ -6698,6 +6740,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &628004026
@@ -6933,6 +6980,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (38)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!4 &655512941 stripped
@@ -7012,6 +7064,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (40)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -7172,6 +7229,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &680127516
@@ -7245,6 +7307,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x2 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
@@ -7490,6 +7557,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x2 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
 --- !u!1001 &723882726
@@ -7564,6 +7636,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (31)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &731245379
@@ -7577,6 +7654,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -7742,6 +7824,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -7909,7 +7996,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!108 &769221122
 Light:
@@ -8079,6 +8166,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x2 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
@@ -8347,6 +8439,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -8777,6 +8874,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (36)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!4 &859969455 stripped
@@ -9152,7 +9254,7 @@ Transform:
   - {fileID: 302267833}
   - {fileID: 1798135003}
   m_Father: {fileID: 2094731795}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &923116544
 PrefabInstance:
@@ -9226,6 +9328,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!4 &938596816 stripped
@@ -9245,6 +9352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -9568,6 +9680,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x1 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
       propertyPath: m_CastShadows
@@ -9701,6 +9818,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -9849,6 +9971,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -10088,6 +10215,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &1072104435
@@ -10161,6 +10293,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
@@ -10290,6 +10427,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -10650,6 +10792,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!4 &1188563724 stripped
@@ -10729,6 +10876,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -10889,6 +11041,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &1214227456
@@ -10963,6 +11120,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x2 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
 --- !u!1001 &1218075067
@@ -11036,6 +11198,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (32)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -11480,6 +11647,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x1 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
       propertyPath: m_CastShadows
@@ -11620,6 +11792,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (33)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &1248015347
@@ -11694,6 +11871,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &1256823139
@@ -11707,6 +11889,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -12176,6 +12363,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1 &1325818130
@@ -12329,6 +12521,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -12580,6 +12777,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &1346975971
@@ -12812,6 +13014,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!4 &1354221693 stripped
@@ -12922,6 +13129,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -13626,6 +13838,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x1 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
       propertyPath: m_CastShadows
@@ -13759,6 +13976,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -13937,6 +14159,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x2 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
 --- !u!4 &1473850080 stripped
@@ -13952,10 +14179,35 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1507003667}
     m_Modifications:
+    - target: {fileID: 2265932343810512338, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160647792376792997, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5989529129377468662, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169266111103433010, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6878774288397284110, guid: 44768374db11dcf47bb72ac991af677d,
         type: 3}
       propertyPath: m_Name
       value: PostNextBrickWidget
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878774288397284110, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 6878774288397284111, guid: 44768374db11dcf47bb72ac991af677d,
         type: 3}
@@ -14043,6 +14295,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -14317,7 +14574,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1507003667
 Transform:
@@ -14335,7 +14592,7 @@ Transform:
   - {fileID: 14649055}
   - {fileID: 1476961047}
   m_Father: {fileID: 2094731795}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1513509727 stripped
 Transform:
@@ -14585,6 +14842,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x2 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
 --- !u!1001 &1535403737
@@ -14828,6 +15090,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -15242,6 +15509,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -15932,6 +16204,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x2 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
 --- !u!4 &1646739891 stripped
@@ -15951,6 +16228,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -16110,6 +16392,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -16423,6 +16710,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -16984,6 +17276,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!4 &1786230618 stripped
@@ -17009,6 +17306,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -17229,6 +17531,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &1838258986
@@ -17242,6 +17549,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -17608,6 +17920,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &1886965423
@@ -17681,6 +17998,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -18051,7 +18373,7 @@ Transform:
   - {fileID: 90219531}
   - {fileID: 823519797}
   m_Father: {fileID: 2094731795}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1893987215
 PrefabInstance:
@@ -18124,6 +18446,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x2 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
@@ -18372,6 +18699,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &1928942064
@@ -18445,6 +18777,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -18605,6 +18942,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (42)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!4 &1972065087 stripped
@@ -18697,6 +19039,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &1992097668
@@ -18710,6 +19057,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -18923,6 +19275,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -19314,6 +19671,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (43)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &2052692335
@@ -19387,6 +19749,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -19462,6 +19829,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x2 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
 --- !u!4 &2087428522 stripped
@@ -19490,7 +19862,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2094731795
 Transform:
@@ -19505,7 +19877,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 769221123}
-  - {fileID: 157300134}
   - {fileID: 1893611711}
   - {fileID: 914838762}
   - {fileID: 1507003667}
@@ -19584,6 +19955,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 1x1 (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
 --- !u!1001 &2096816531
@@ -19657,6 +20033,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 1x1 (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070958991490535523, guid: 1002cc75495ea8c408b9d0ec0534effd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1002cc75495ea8c408b9d0ec0534effd, type: 3}
@@ -19920,6 +20301,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayableFacade 2x2 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 6271199111248920741, guid: e7d2181534e40b248b30e484c1648023,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d2181534e40b248b30e484c1648023, type: 3}
 --- !u!1001 &2140844540
@@ -20018,6 +20404,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayableFacade 2x1 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 628545605032231754, guid: 63c7f00f071d044429faf7aa56bff3ef,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4950073453923103565, guid: 63c7f00f071d044429faf7aa56bff3ef,
         type: 3}
@@ -20551,10 +20942,35 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1507003667}
     m_Modifications:
+    - target: {fileID: 2265932343810512338, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160647792376792997, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5989529129377468662, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169266111103433010, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6878774288397284110, guid: 44768374db11dcf47bb72ac991af677d,
         type: 3}
       propertyPath: m_Name
       value: BrickHolderWidget
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878774288397284110, guid: 44768374db11dcf47bb72ac991af677d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 6878774288397284111, guid: 44768374db11dcf47bb72ac991af677d,
         type: 3}

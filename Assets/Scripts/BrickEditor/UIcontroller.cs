@@ -83,6 +83,6 @@ public class UIcontroller : MonoBehaviour
 
     private void CreateBrickSave(Texture2D imageBuf)
     {
-        _items.Add(new BrickConfig("Save", imageBuf));
+        //_items.Add(new BrickConfig("Save", imageBuf));
     }
 }
