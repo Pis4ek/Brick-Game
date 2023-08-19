@@ -4,6 +4,7 @@ using Services.Storage;
 using Services.Timer;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace LeaderboardComponents
 {
@@ -13,75 +14,54 @@ namespace LeaderboardComponents
         private const string CUSTOM_SAVE_KEY = "Custom play leaderboard";
 
         private IStorageService _storageService;
-        private LinkedList<LeaderbordElement> _leaders;
+        public GameResult[] Records;
 
         public Leaderboard(bool isClassicGame)
         {
             _storageService = new BinaryStorageService();
-
-            InitLeaderboardList(isClassicGame);
+            TryLoadResultList(isClassicGame);
         }
 
-        public bool TryAddGameResult(int score, GameTime time, out LeaderbordElement leaderboardPlace)
+        public bool TryAddGameResult(int score, GameTime time)
         {
-            leaderboardPlace = null;
-
-            if (_leaders != null && _leaders.Last != null)
+            if (Records != null)
             {
-                if (score > _leaders.Last.Value.Score)
+                for (int i = 0; i < Records.Length; i++)
                 {
-                    var current = _leaders.Last.Previous;
-                    for (int i = current.Value.LeaderboardPlace; i > 0; i--)
+                    if (Records[i] == null)
                     {
-                        if(score < current.Value.Score)
-                        {
-                            leaderboardPlace = AddElementInLeaderboard(
-                                current, score, time, current.Value.LeaderboardPlace + 1);
-
-                            return true;
-                        }
-                        current = current.Previous;
+                        Records[i] = new GameResult(score, time);
+                        _storageService.Save(CLASSIC_SAVE_KEY, Records);
+                        return true;
                     }
-
-                    leaderboardPlace = AddElementInLeaderboard(current, score, time, 1);
-                    return true;
+                    else if (score > Records[i].Score)
+                    {
+                        for (int j = Records.Length - 1; j > i; j--)
+                        {
+                            Records[j] = Records[j - 1];
+                        }
+                        Records[i] = new GameResult(score, time);
+                        _storageService.Save(CLASSIC_SAVE_KEY, Records);
+                        return true;
+                    }
                 }
                 return false;
             }
-            return false;
+            throw new Exception("Leaderboard list is null. Can not add new element.");
         }
 
-        private LeaderbordElement AddElementInLeaderboard(LinkedListNode<LeaderbordElement> current, 
-            int score, GameTime time, int place)
-        {
-            var leaderboardPlace = new LeaderbordElement(score, time, place, DateTime.Today);
-            _leaders.AddAfter(current, leaderboardPlace);
-
-            if (_leaders.Count > 10)
-            {
-                _leaders.RemoveLast();
-            }
-            return leaderboardPlace;
-        }
-
-        private void InitLeaderboardList(bool isClassicGame)
+        private void TryLoadResultList(bool isClassicGame)
         {
             try
             {
                 if (isClassicGame)
-                {
-                    _storageService.Load(CLASSIC_SAVE_KEY,
-                        delegate (LinkedList<LeaderbordElement> list) { _leaders = list; });
-                }
+                    _storageService.Load(CLASSIC_SAVE_KEY, delegate (GameResult[] list) { Records = list; });
                 else
-                {
-                    _storageService.Load(CUSTOM_SAVE_KEY,
-                        delegate (LinkedList<LeaderbordElement> list) { _leaders = list; });
-                }
+                    _storageService.Load(CUSTOM_SAVE_KEY, delegate (GameResult[] list) { Records = list; });
             }
             catch
             {
-                _leaders = new LinkedList<LeaderbordElement>();
+                Records = new GameResult[10];
             }
         }
     }

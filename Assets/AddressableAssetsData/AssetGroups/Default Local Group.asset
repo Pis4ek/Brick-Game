@@ -17,24 +17,16 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: fe1ffef4de9fc7b4a99133349481d19a
   m_SerializeEntries:
-  - m_GUID: e87c20138e5d5b04e8d9d4aea68472de
-    m_Address: Ice_Block_Material
+  - m_GUID: 927647151e687bd4ca23382bc21fc3cc
+    m_Address: Play_Button_Icon
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9107888b6fbe49e44ac19e9350ebfe48
-    m_Address: Lava_Block_Material
+  - m_GUID: 3525a01e6600fb642afd9e4d470a4747
+    m_Address: Pause_Button_Icon
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 730e10139aed5d649bcd362faa6a39e2
-    m_Address: Obsidian_Block_Material
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: cfc1552e3e09a2c46a53cd0568cdb24a
-    m_Address: Stone_Block_Material
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ed67ee4508c47ee4ca99c381a2936993
-    m_Address: Default_Block_Material
+  - m_GUID: 99fd476347131804193783ea13d5bb59
+    m_Address: LeaderboardViewElement
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

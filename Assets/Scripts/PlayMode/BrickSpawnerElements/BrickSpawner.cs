@@ -1,85 +1,46 @@
-﻿using Newtonsoft.Json;
-using PlayMode.Bricks;
+﻿using PlayMode.Bricks;
+using PlayMode.BrickSpawnerElements;
 using PlayMode.Map;
-using Services;
-using Services.Storage;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace PlayMode
 {
-    public class BrickSpawner : MonoBehaviour, IService
+    public class BrickSpawner
     {
-        public event Action OnValueChangedEvent;
         public event Action OnBrickCanNotSpawnEvent;
 
-        public BrickConfig NextBrick { get { return _configLoader.GetConfig(NextBrickIndex); } }
-        public int NextBrickIndex { get; private set; }
-        public int? SavedBrickIndex { get; private set; } = null;
-
-        private BrickConfigLoader _configLoader;
+        private BrickSpawnerData _data;
+        private BrickSpawningPredicator _brickPredicator;
         private IResetableBrick _brick;
-        private Vector2Int _spawnPoint;
-        private int _currentBrickIndex;
+        private IGameStateEvents _gameState;
 
-        public BrickSpawner Init(BlockMap blockMap, IResetableBrick brick, IGameStateEvents gameStateEvents)
+        public BrickSpawner(BrickSpawnerData data, IResetableBrick brick, 
+            IReadOnlyBrickData brickData, IGameStateEvents gameStateEvents)
         {
             _brick = brick;
+            _data = data;
+            _gameState = gameStateEvents;
+            _brickPredicator = new BrickSpawningPredicator(_data);
 
-            _configLoader = new BrickConfigLoader();
-
-            blockMap.OnBrickLandedEvent += SpawnNewBrick;
-
-            CalculateSpawnPoint(blockMap);
-
-            gameStateEvents.OnGameStartedEvent += SpawnNewBrick;
-
-            NextBrickIndex = _configLoader.GetRandomIndex();
-
-            return this;
+            brickData.OnBrickLandedEvent += SpawnNextBrick;
+            gameStateEvents.OnGameStartedEvent += SpawnNextBrick;
         }
 
-        public void SaveCurrentBrick()
+        public void SpawnCurrentBrick()
         {
-            if(SavedBrickIndex != null)
+            if(_gameState.State == GameState.Playing)
             {
-                int tmp = _currentBrickIndex;
-                _currentBrickIndex = SavedBrickIndex.Value;
-                SavedBrickIndex = tmp;
-
-                _brick.ResetBrick(_spawnPoint, _configLoader.GetConfig(_currentBrickIndex));
-                OnValueChangedEvent?.Invoke();
-            }
-            else
-            {
-                SavedBrickIndex = _currentBrickIndex;
-                Spawn(_currentBrickIndex);
+                if (_brick.ResetBrick(_data.SpawnPoint, _data.CurrentBrick) == false)
+                {
+                    OnBrickCanNotSpawnEvent?.Invoke();
+                }
             }
         }
 
-        private void Spawn(int index)
+        public void SpawnNextBrick()
         {
-            BrickConfig config = _configLoader.GetConfig(index);
-
-            if (_brick.ResetBrick(_spawnPoint, config) == false)
-            {
-                OnBrickCanNotSpawnEvent?.Invoke();
-            }
-        }
-
-        private void SpawnNewBrick()
-        {
-            _currentBrickIndex = NextBrickIndex;
-            NextBrickIndex = _configLoader.GetRandomIndex();
-
-            Spawn(_currentBrickIndex);
-            OnValueChangedEvent?.Invoke();
-        }
-
-        private void CalculateSpawnPoint(BlockMap blockMap)
-        {
-            _spawnPoint = new Vector2Int(blockMap.MapSize.x / 2 - 2, 0);
+            _brickPredicator.SetNextBrickIndex();
+            SpawnCurrentBrick();
         }
     }
 }

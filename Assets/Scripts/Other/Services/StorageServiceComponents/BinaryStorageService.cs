@@ -17,22 +17,22 @@ namespace Services.Storage
         {
             string path = BuildPath(key);
 
-            FileStream fileStream = File.Create(path);
-            _binaryFormatter.Serialize(fileStream, data);
-            fileStream.Close();
-
-            callback?.Invoke(true);
+            using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                _binaryFormatter.Serialize(fileStream, data);
+                callback?.Invoke(true);
+            }
         }
 
         public void Load<T>(string key, Action<T> callback)
         {
             string path = BuildPath(key);
 
-            FileStream fileStream = File.Open(path, FileMode.Open);
-            T data = (T)_binaryFormatter.Deserialize(fileStream);
-            fileStream.Close();
-
-            callback?.Invoke(data);
+            using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                T data = (T)_binaryFormatter.Deserialize(fileStream);
+                callback?.Invoke(data);
+            }
         }
 
         private string BuildPath(string key)

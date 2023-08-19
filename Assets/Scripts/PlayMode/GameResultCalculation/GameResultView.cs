@@ -17,7 +17,7 @@ namespace PlayMode.GameResultCalculation
             gameResultCalculator.OnResultCalculated += delegate (GameResult result)
             {
                 _gameResultScreen.SetActive(true);
-                _scoreText.text = $"Score: {result.Score}";
+                _scoreText.text = $"Score: {result.Score:d5}";
                 _timeText.text = $"Time: {result.Time}";
             };
 

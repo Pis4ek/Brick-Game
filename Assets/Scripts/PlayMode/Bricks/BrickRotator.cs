@@ -12,13 +12,11 @@ namespace PlayMode.Bricks
     {
         private BrickData _data;
         private BlockMap _map;
-        private CoordinateConverter _converter;
 
         public BrickRotator(BrickData data, BlockMap map)
         {
             _data = data;
             _map = map;
-            _converter = new CoordinateConverter(_map.CellSize, _map.WorldStartMap);
         }
 
         public bool Rotate()

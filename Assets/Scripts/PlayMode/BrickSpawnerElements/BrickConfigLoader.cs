@@ -11,7 +11,7 @@ namespace PlayMode
 
         public BrickConfigLoader()
         {
-            var json = Resources.Load<TextAsset>("BricksInfo");
+            var json = Resources.Load<TextAsset>("BricksInfo 3");
             if (json == null)
             {
                 throw new Exception($"{GetType()} has not found BrickConfig for default bricks.");

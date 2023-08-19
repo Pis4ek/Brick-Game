@@ -11,27 +11,24 @@ namespace PlayMode.GameResultCalculation
     {
         public event Action<GameResult> OnResultCalculated;
 
-        private Timer _timer;
-        private ScoreCounter _scoreCounter;
+        private IReadOnlyTimerData _timer;
+        private IReadOnlyScoreData _scoreData;
         private Leaderboard _leaderboard;
 
-        public GameResultCalculator(IGameStateEvents gameEvents, Timer timer, 
-            ScoreCounter scoreCounter, Leaderboard leaderboard)
+        public GameResultCalculator(IGameStateEvents gameEvents, IReadOnlyTimerData timer, 
+            IReadOnlyScoreData scoreData, Leaderboard leaderboard)
         {
             gameEvents.OnGameEndedEvent += CalculateResult;
             _timer = timer;
-            _scoreCounter = scoreCounter;
+            _scoreData = scoreData;
             _leaderboard = leaderboard;
         }
 
         private void CalculateResult()
         {
-            GameResult result = new GameResult(_scoreCounter.Score, _timer.GameTime, 0);
+            GameResult result = new GameResult(_scoreData.Score, _timer.GameTime);
 
-            if (_leaderboard.TryAddGameResult(_scoreCounter.Score, _timer.GameTime, out var r))
-            {
-                result = r;
-            }
+            _leaderboard.TryAddGameResult(_scoreData.Score, _timer.GameTime);
 
             OnResultCalculated?.Invoke(result);
         }

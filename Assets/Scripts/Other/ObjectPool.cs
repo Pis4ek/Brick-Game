@@ -6,13 +6,15 @@ public class ObjectPool<T> where T : Component
     public T PoolPrefab { get; }
     public bool AutoExpand { get; set; } = false;
     public Transform Container { get; }
+    public string Name { get; set; }
 
     private List<T> _pool;
 
-    public ObjectPool(T prefab, int count = 1, Transform container = null)
+    public ObjectPool(T prefab, int count = 1, Transform container = null, string name = "ObjectPoolElement")
     {
         PoolPrefab = prefab;
         Container = container;
+        Name = name;
         CreatePool(count);
     }
 
@@ -80,7 +82,7 @@ public class ObjectPool<T> where T : Component
     {
         var createdObject = Object.Instantiate(PoolPrefab, Container);
         createdObject.gameObject.SetActive(isActiveByDefault);
-        createdObject.name = $"ObjectPoolElement_{_pool.Count}";
+        createdObject.name = $"{Name}_{_pool.Count}";
 
         _pool.Add(createdObject);
         return createdObject;

@@ -1,5 +1,6 @@
 ﻿namespace Services.Timer
 {
+    [System.Serializable]
     public struct GameTime
     {
         public int Minutes;
@@ -13,7 +14,7 @@
 
         public override string ToString()
         {
-            return $"{Minutes}:{Seconds}";
+            return $"{Minutes:d2}:{Seconds:d2}";
         }
     }
 }

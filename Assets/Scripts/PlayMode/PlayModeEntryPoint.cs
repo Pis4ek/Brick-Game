@@ -1,86 +1,106 @@
 using LeaderboardComponents;
 using PlayMode;
 using PlayMode.Bricks;
+using PlayMode.BrickSpawnerElements;
 using PlayMode.GameResultCalculation;
+using PlayMode.Level;
 using PlayMode.Map;
 using PlayMode.Score;
 using PlayMode.View;
-using Services;
 using Services.Timer;
 using System;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlayModeEntryPoint : MonoBehaviour, IGameStateEvents
 {
+    public event Action OnValueChangedEvent;
     public event Action OnGameStartedEvent;
     public event Action OnGameEndedEvent;
+    public event Action OnGamePausedEvent;
+    public event Action OnGameUnpausedEvent;
 
     [SerializeField] GameObject _interfaceGameObject;
 
-    private LocalServices _localServices;
+    public GameState State {
+        get { return _state; } 
+        private set 
+        {
+            _state = value;
+            OnValueChangedEvent?.Invoke();
+        } 
+    }
 
+    private GameState _state = GameState.Uninitialized;
 
     private void Awake()
     {
-        _localServices = new LocalServices();
+        var stopWatch = new Stopwatch();
 
+        stopWatch.Start();
         Init();
+        stopWatch.Stop();
+        UnityEngine.Debug.Log($"Init time: {stopWatch.ElapsedMilliseconds}");
 
-        _localServices.GetService<BrickSpawner>().OnBrickCanNotSpawnEvent += delegate ()
-        {
-            OnGameEndedEvent?.Invoke();
-        };
-
+        State = GameState.Playing;
         OnGameStartedEvent?.Invoke();
     }
 
     private void Init()
     {
-        var timer = AddObject("Timer").AddComponent<Timer>().Init(this);
-        _localServices.Add(timer);
-
-        var gameMap = new BlockMap(AddObject("BlockMapContainer").transform);
-        _localServices.Add(gameMap);
-
-        var converter = new CoordinateConverter(gameMap.CellSize, gameMap.WorldStartMap);
-
-        var scoreCounter = new ScoreCounter(gameMap, timer);
-        _localServices.Add(scoreCounter);
-
         var brickGO = AddObject("Brick");
-        var brickData = new BrickData(brickGO.transform);
+
+        #region DATA
+        var timerData = new TimerData();
+        var brickData = new BrickData();
+        var blockMapData = new BlockMapData(AddObject("BlockMapContainer").transform);
+        var brickSpawnerData = new BrickSpawnerData(blockMapData.MapSize);
+        var scoreData = new ScoreData();
+        var levelData = new LevelData();
+        #endregion
+
+        #region LOGIC
+        var timer = AddObject("Timer").AddComponent<Timer>().Init(timerData, levelData, this);
+        var gameMap = new BlockMap(blockMapData);
+        var converter = new CoordinateConverter(blockMapData.CellSize, blockMapData.WorldStartMap);
+        var scoreCounter = new ScoreCounter(scoreData, gameMap, timerData);
+        var levelCounter = new LevelCounter(levelData, scoreData);
         var brick = new Brick(gameMap, brickData);
-        _localServices.Add(brick);
-
-        var brickSpawner = brickGO.AddComponent<BrickSpawner>().Init(gameMap, brick, this);
-        _localServices.Add(brickSpawner);
-
+        var brickSpawner = new BrickSpawner(brickSpawnerData, brick, brickData, this);
+        brickSpawner.OnBrickCanNotSpawnEvent += delegate ()
+        {
+            State = GameState.Ended;
+            OnGameEndedEvent?.Invoke();
+        };
+        var brickSpawningHolder = new BrickSpawningHolder(brickSpawner, brickSpawnerData);
         var leaderboard = new Leaderboard(true);
-        _localServices.Add(leaderboard);
+        var gameResultCalculator = new GameResultCalculator(this, timerData, scoreData, leaderboard);
+        #endregion
 
-        var gameResultCalculator = new GameResultCalculator(this, timer, scoreCounter, leaderboard);
-        _localServices.Add(gameResultCalculator);
+        #region VIEW
+        brickGO.AddComponent<BrickView>().Init(brick, converter, brickData);
 
+        var pauseInput = _interfaceGameObject.GetComponentInChildren<PauseInput>();
+        pauseInput.OnValueChangedEvent += delegate ()
+        {
+            if (pauseInput.IsPaused)
+            {
+                State = GameState.Paused;
+                OnGamePausedEvent?.Invoke();
+            }
+            else
+            {
+                State = GameState.Playing;
+                OnGameUnpausedEvent?.Invoke();
+            }
+        };
 
-        //---------------VIEW---------------
+        var worldSpaceUINode = _interfaceGameObject.GetComponentInChildren<WorldSpaceUINode>()
+            .Init(brickSpawningHolder, brickSpawnerData, scoreData, timerData, levelData, gameResultCalculator);
+        var screenSpaceUINode = _interfaceGameObject.GetComponentInChildren<ScreenSpaceUINode>().Init(brick, timerData);
 
-
-        var brickView = brickGO.AddComponent<BrickView>().Init(brick, converter, brickData);
-
-        var brickSaverInput = _interfaceGameObject.GetComponentInChildren<BrickSaverInput>()
-            .Init(_localServices.GetService<BrickSpawner>());
-
-        var brickInput = _interfaceGameObject.GetComponentInChildren<BrickInput>()
-            .Init(brick, timer);
-
-        var brickConfigWidget = _interfaceGameObject.GetComponentInChildren<BrickConfigWidget>()
-            .Init(_localServices.GetService<BrickSpawner>());
-
-        var scoreView = _interfaceGameObject.GetComponentInChildren<ScoreView>()
-            .Init(_localServices.GetService<ScoreCounter>());
-
-        var gameResultView = _interfaceGameObject.GetComponentInChildren<GameResultView>(true)
-            .Init(_localServices.GetService<GameResultCalculator>());
+        var uiController = new UIController(this, screenSpaceUINode, worldSpaceUINode);
+        #endregion
     }
 
     private GameObject AddObject(string name)

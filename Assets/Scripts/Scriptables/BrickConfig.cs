@@ -11,7 +11,6 @@ public struct BrickConfig
 
     public int x;
     public int y;
-
     public bool[,] shape;
 
     [JsonIgnore]

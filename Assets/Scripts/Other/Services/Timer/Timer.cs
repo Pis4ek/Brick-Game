@@ -1,4 +1,5 @@
 using PlayMode;
+using PlayMode.Level;
 using System;
 using UnityEngine;
 
@@ -6,50 +7,67 @@ namespace Services.Timer
 {
     public class Timer : MonoBehaviour, IService
     {
-        public event Action OnSecondTickedEvent;
-        public event Action OnMinuteTickedEvent;
+        private TimerData _data;
+        private float _fallingTimeCounter = 0;
+        private IReadOnlyLevelData _levelData;
 
-        public float TimeSinceStart { get; private set; } = 0f;
-        public int SecondsSinceStart { get; private set; } = 0;
-        public int MinutesSinceStart { get; private set; } = 0;
-        public GameTime GameTime => new GameTime(MinutesSinceStart, SecondsSinceStart);
-        public bool TimerStarted { get; private set; } = false;
-
-        public Timer Init(IGameStateEvents gameEvents)
+        public Timer Init(TimerData data, IReadOnlyLevelData levelData, IGameStateEvents gameEvents)
         {
             gameEvents.OnGameStartedEvent += StartTimer;
             gameEvents.OnGameEndedEvent += StopTimer;
+            gameEvents.OnGameUnpausedEvent += StartTimer;
+            gameEvents.OnGamePausedEvent += StopTimer;
+
+            _levelData = levelData;
+            levelData.OnValueChangedEvent += SetLevelTimeStep;
+
+            _data = data;
 
             return this;
         }
 
-
         private void FixedUpdate()
         {
-            if (TimerStarted)
+            if (_data.IsTimerStarted)
             {
-                TimeSinceStart += Time.fixedDeltaTime;
-                if (TimeSinceStart > SecondsSinceStart + 1)
+                _data.TimeSinceStart += Time.fixedDeltaTime;
+                _fallingTimeCounter += Time.fixedDeltaTime;
+                if (_data.TimeSinceStart > _data.SecondsSinceStart + 1)
                 {
-                    SecondsSinceStart++;
-                    OnSecondTickedEvent?.Invoke();
+                    _data.SecondsSinceStart++;
+                    _data.Seconds++;
+                    if(_data.Seconds >= 60)
+                    {
+                        _data.Seconds = 0;
+                        _data.MinutesSinceStart++;
+                        _data.SendMinuteTick();
+                    }
+                    _data.SendSecondTick();
                 }
-                if (TimeSinceStart / 60 > MinutesSinceStart + 1)
+                if (_data.TimeSinceStart / 60 > _data.MinutesSinceStart + 1)
                 {
-                    MinutesSinceStart++;
-                    OnMinuteTickedEvent?.Invoke();
+                }
+                if(_fallingTimeCounter > _data.FallingTimeStep)
+                {
+                    _fallingTimeCounter -= _data.FallingTimeStep;
+                    _data.SendFallingTimeTick();
                 }
             }
         }
 
         private void StartTimer()
         {
-            TimerStarted = true;
+            _data.IsTimerStarted = true;
         }
 
         private void StopTimer()
         {
-            TimerStarted = true;
+            _data.IsTimerStarted = false;
+        }
+
+        private void SetLevelTimeStep()
+        {
+            _data.FallingTimeStep = 1 - 0.05f * _levelData.Level;
         }
     }
 }

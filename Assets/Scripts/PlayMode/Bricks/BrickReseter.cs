@@ -9,18 +9,17 @@ namespace PlayMode.Bricks
     {
         private BrickData _data;
         private BlockMap _map;
-        private CoordinateConverter _converter;
 
         public BrickReseter(BrickData data, BlockMap map)
         {
             _data = data;
             _map = map;
-            _converter = new CoordinateConverter(_map.CellSize, _map.WorldStartMap);
         }
 
         public bool Reset(Vector2Int startCoordiantes, BrickConfig config)
         {
-            _data.BlockPool.HideAllElements();
+            _data.IsLanded = false;
+            _data.Color = config.Color;
             _data.LocalCenter = config.LocalCenter;
             _data.GlobalCenter = startCoordiantes + config.LocalCenter;
             var shape = new List<BrickPart>(16);

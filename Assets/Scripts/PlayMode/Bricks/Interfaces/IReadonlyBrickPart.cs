@@ -7,7 +7,6 @@ namespace PlayMode.Bricks
         public Vector2Int LocalCoordinates { get;}
         public Vector2Int Coordinates { get; }
         public GameObject GameObject { get; }
-        public BlockType Type { get; }
         public MeshRenderer Renderer { get; }
     }
 }

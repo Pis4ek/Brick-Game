@@ -1,19 +1,25 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
+using PlayMode.Map;
 
 namespace PlayMode.Bricks
 {
-    public class BrickData
+    public class BrickData : IReadOnlyBrickData
     {
+        public event Action OnBrickLandedEvent;
+
         public Vector2Int LocalCenter { get;  set; }
         public Vector2Int GlobalCenter { get;  set; }
+        public Color Color { get; set; }
         public List<BrickPart> Shape { get;  set; }
-        public ObjectPool<Transform> BlockPool { get;  set; }
+        public List<Vector2Int> FullDownPosition { get; set; } = new List<Vector2Int>(16);
+        public bool IsLanded { get; set; }
 
-        public BrickData(Transform blockContainer)
+        public void SendBrickLandedEvent()
         {
-            var blockPrefab = Resources.Load<GameObject>("BlockObject");
-            BlockPool = BlockPool = new ObjectPool<Transform>(blockPrefab.transform, 16, blockContainer);
+            IsLanded = false;
+            OnBrickLandedEvent?.Invoke();
         }
     }
 }

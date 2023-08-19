@@ -1,43 +1,28 @@
 ﻿using Services.Timer;
+using System;
 
 namespace PlayMode.GameResultCalculation
 {
+    [Serializable]
     public class GameResult
     {
         public int Score { get; private set; }
         public GameTime Time { get; private set; }
-        public int LeaderboardPlace { get; private set; }
+        public DateTime Date { get; private set; }
 
 
-        public GameResult(int score, GameTime time, int leaderboardPlace)
+        public GameResult(int score, GameTime time)
         {
             Score = score;
             Time = time;
-            LeaderboardPlace = leaderboardPlace;
+            Date = DateTime.Now;
         }
 
         public GameResult(GameResult gameResult)
         {
             Score = gameResult.Score;
             Time = gameResult.Time;
-            LeaderboardPlace = gameResult.LeaderboardPlace;
-        }
-
-        public static bool operator >(GameResult a, GameResult b)
-        {
-            return a.Score > b.Score;
-        }
-        public static bool operator <(GameResult a, GameResult b)
-        {
-            return a.Score < b.Score;
-        }
-        public static bool operator >=(GameResult a, GameResult b)
-        {
-            return a.Score >= b.Score;
-        }
-        public static bool operator <=(GameResult a, GameResult b)
-        {
-            return a.Score <= b.Score;
+            Date = gameResult.Date;
         }
     }
 }

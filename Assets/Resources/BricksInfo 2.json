@@ -1,0 +1,72 @@
+[
+  {
+    "r": 228.0, "g": 3.0, "b": 3.0, //00 red
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ true, true, true, false ],
+      [ false, false, true, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 255, "g": 140.0, "b": 0.0, //01 orange
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ true, true, true, false ],
+      [ false, true, false, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 255, "g": 217.0, "b": 0.0, //02 yellow
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ true, true, true, false ],
+      [ true, false, false, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r":  0.0, "g": 128.0, "b": 38.0, //03 green
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ false, true, true, false ],
+      [ false, true, true, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 43.0, "g": 90.0, "b": 192.0, //04 blue
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ true, true, false, false ],
+      [ false, true, true, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 255, "g": 140.0, "b": 120.0, //05 pink
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ false, true, true, false ],
+      [ true, true, false, false ],
+      [ false, false, false, false ]
+    ]
+  },
+  {
+    "r": 115.0, "g": 41.0, "b": 130.0, //06 puple
+    "x": 1, "y": 1,
+    "shape": [
+      [ false, false, false, false ],
+      [ true, true, true, true ],
+      [ false, false, false, false ],
+      [ false, false, false, false ]
+    ]
+  }
+]

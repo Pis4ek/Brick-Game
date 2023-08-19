@@ -4,7 +4,10 @@ namespace PlayMode.Bricks
 {
     public interface IControllableBrick
     {
-        public bool Move(Vector2Int direction);
+        public bool DownMove();
+        public bool FullDownMove();
+        public bool LeftMove();
+        public bool RightMove();
         public bool Rotate();
     }
 }

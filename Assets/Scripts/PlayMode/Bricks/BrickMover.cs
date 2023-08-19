@@ -1,5 +1,4 @@
 ﻿using PlayMode.Map;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,13 +8,11 @@ namespace PlayMode.Bricks
     {
         private BrickData _data;
         private BlockMap _map;
-        private CoordinateConverter _converter;
 
         public BrickMover(BrickData data, BlockMap map)
         {
             _data = data;
             _map = map;
-            _converter = new CoordinateConverter(_map.CellSize, _map.WorldStartMap);
         }
 
         public bool Move(Vector2Int direction)
@@ -32,15 +29,10 @@ namespace PlayMode.Bricks
 
                 if(_map.HasBlockInPosition(dX, dY))
                 {
-                    if (direction == Vector2Int.down)
-                    {
-                        _map.AddBrick(_data.Shape);
-                    }
                     return false;
                 }
                 newShape.Add(newBlock);
             }
-
             ApplyShape(newShape);
 
             return true;

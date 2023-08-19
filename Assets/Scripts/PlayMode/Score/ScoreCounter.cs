@@ -7,24 +7,16 @@ namespace PlayMode.Score
 {
     public class ScoreCounter : IService
     {
-        public event Action OnValueChangedEvent;
+        private ScoreData _data;
 
-        public int Score {
-            get { return _score; }
-            private set {
-                _score = value;
-                OnValueChangedEvent?.Invoke();
-            } }
-
-        private int _score  = 0;
-
-        public ScoreCounter(BlockMap blockMap, Timer timer)
+        public ScoreCounter(ScoreData data, BlockMap blockMap, IReadOnlyTimerData timer)
         {
-            timer.OnSecondTickedEvent += delegate () { Score += 1; };
+            _data = data;
+            //timer.OnSecondTickedEvent += delegate () { _data.Score += 1; };
 
-            blockMap.OnBlocksAddedEvent += delegate (int count) { Score += 2 * count; };
+            blockMap.OnBlocksAddedEvent += delegate (int count) { _data.Score += 1 * count; };
 
-            blockMap.OnLinesDestroyedEvent += delegate (int count) { Score += 100 * count * count; };
+            blockMap.OnLinesDestroyedEvent += delegate (int count) { _data.Score += 10 * count * count; };
         }
     }
 }
