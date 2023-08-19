@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f1392b573800c7c458b71d412b3e988b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _brickCamera: {instanceID: 0}
+  - itemsListTemplate: {instanceID: 0}
+  - renderTexture: {fileID: 8400000, guid: 65207991c6f18674b85545e350b06c9d, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
