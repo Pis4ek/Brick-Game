@@ -17,14 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: fe1ffef4de9fc7b4a99133349481d19a
   m_SerializeEntries:
-  - m_GUID: 927647151e687bd4ca23382bc21fc3cc
-    m_Address: Play_Button_Icon
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 3525a01e6600fb642afd9e4d470a4747
-    m_Address: Pause_Button_Icon
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 99fd476347131804193783ea13d5bb59
     m_Address: LeaderboardViewElement
     m_ReadOnly: 0
