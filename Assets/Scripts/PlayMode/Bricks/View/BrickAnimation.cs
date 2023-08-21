@@ -12,12 +12,14 @@ namespace PlayMode.Bricks
         private BrickData _data;
         private Vector3[] _targetPositions;
         private float _animationTime;
+        private float _animationStepTime;
 
         public BrickAnimation(CoordinateConverter converter, BrickData data, float animationTime)
         {
             _converter = converter;
             _data = data;
             _animationTime = animationTime;
+            _animationStepTime = _animationTime / 10;
 
             _targetPositions = new Vector3[_data.Shape.Count];
             for (int i = 0; i < _data.Shape.Count; i++)
@@ -35,7 +37,7 @@ namespace PlayMode.Bricks
                     _data.Shape[i].GameObject.transform.position = Vector3.Lerp(
                         _data.Shape[i].GameObject.transform.position, _targetPositions[i], t);
                 }
-                yield return new WaitForSeconds(_animationTime / 10);
+                yield return new WaitForSeconds(_animationStepTime);
             }
 
             OnAnimationEndedEvent?.Invoke();

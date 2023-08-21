@@ -11,6 +11,7 @@ using Services.Timer;
 using System;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayModeEntryPoint : MonoBehaviour, IGameStateEvents
 {
@@ -21,6 +22,7 @@ public class PlayModeEntryPoint : MonoBehaviour, IGameStateEvents
     public event Action OnGameUnpausedEvent;
 
     [SerializeField] GameObject _interfaceGameObject;
+    [SerializeField] Text _initTimeText;
 
     public GameState State {
         get { return _state; } 
@@ -41,6 +43,7 @@ public class PlayModeEntryPoint : MonoBehaviour, IGameStateEvents
         Init();
         stopWatch.Stop();
         UnityEngine.Debug.Log($"Init time: {stopWatch.ElapsedMilliseconds}");
+        _initTimeText.text = $"Init time: {stopWatch.ElapsedMilliseconds}";
 
         State = GameState.Playing;
         OnGameStartedEvent?.Invoke();

@@ -21,7 +21,7 @@ namespace BootScene
             BinaryStorageService binaryStorageService = new BinaryStorageService();
             services.Add(binaryStorageService);
 
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

@@ -11,20 +11,19 @@ namespace PlayMode.View
         public event Action OnValueChangedEvent;
 
         [SerializeField] Image _buttonIcon;
-        
+        [SerializeField] Sprite _playIcon;
+        [SerializeField] Sprite _pauseIcon;
 
         public bool IsPaused { get; private set; }
 
         private Button _pauseButton;
-        private Sprite _playIcon;
-        private Sprite _pauseIcon;
 
         public PauseInput Init()
         {
             _pauseButton = GetComponent<Button>();
             _pauseButton.onClick.AddListener(Pause);
 
-            LoadSprites();
+            
 
             return this;
         }
@@ -38,8 +37,8 @@ namespace PlayMode.View
 
         private async void LoadSprites()
         {
-            var playIconHandle = Addressables.LoadAssetAsync<Sprite>("Play_Button_Icon");
-            var pauseIconHandle = Addressables.LoadAssetAsync<Sprite>("Pause_Button_Icon");
+            var playIconHandle = Addressables.LoadAssetAsync<Sprite>("UISheet{UISheet_12}");
+            var pauseIconHandle = Addressables.LoadAssetAsync<Sprite>("UISheet{UISheet_8}");
 
             await Task.WhenAll(playIconHandle.Task, pauseIconHandle.Task);
 

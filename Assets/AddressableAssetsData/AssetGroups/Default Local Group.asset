@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: LeaderboardViewElement
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 1019bf43f77984349a93326145138b34
+    m_Address: UISheet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: be588b01e12a01b429b451e098f11f99, type: 2}
   m_SchemaSet:
