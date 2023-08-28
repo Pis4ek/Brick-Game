@@ -28,12 +28,14 @@ namespace LeaderboardComponents
             return this;
         }
 
-        private async void LoadPrefab()
+        private void LoadPrefab()
         {
-            var handle = Addressables.LoadAssetAsync<GameObject>("LeaderboardViewElement");
+            /*var handle = Addressables.LoadAssetAsync<GameObject>("LeaderboardViewElement");
             await handle.Task;
             _elementPrefab = handle.Result.GetComponent<LeaderboardViewElement>();
-            Addressables.Release(handle);
+            Addressables.Release(handle);*/
+
+            _elementPrefab = Resources.Load<LeaderboardViewElement>("Place");
 
             CreateElements();
         }

@@ -7891,7 +7891,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -708238663, guid: 1019bf43f77984349a93326145138b34, type: 3}
+  m_Sprite: {fileID: -6560312497393280637, guid: 1019bf43f77984349a93326145138b34,
+    type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11497,7 +11498,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.745283, g: 0.6261784, b: 0.31990921, a: 1}
+  m_Color: {r: 0.7169812, g: 0.6371287, b: 0.4295123, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -28853,6 +28854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358cc9e3ed9c422428ac240b9968cde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fpsLimit: 60
 --- !u!114 &2134502493
 MonoBehaviour:
   m_ObjectHideFlags: 0

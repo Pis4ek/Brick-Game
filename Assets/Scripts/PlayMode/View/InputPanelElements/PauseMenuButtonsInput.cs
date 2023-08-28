@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Services.LoadingScreen;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,13 +26,23 @@ namespace PlayMode.View
 
         }
 
-        private void RestartGame()
+        private async void RestartGame()
         {
+            if (GloabalServices.Instance.TryGetService<LoadingScreen>(out var loadingScreen))
+            {
+                await loadingScreen.ActivateScreen();
+            }
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        private void OpenMainMenu()
+        private async void OpenMainMenu()
         {
+            if (GloabalServices.Instance.TryGetService<LoadingScreen>(out var loadingScreen))
+            {
+                await loadingScreen.ActivateScreen();
+            }
+
             SceneManager.LoadScene("MainMenu");
         }
     }

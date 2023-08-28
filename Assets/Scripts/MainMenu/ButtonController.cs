@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Services.LoadingScreen;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,13 +14,19 @@ public class ButtonController : MonoBehaviour
         _quitButton.onClick.AddListener(Quit);
     }
 
-    private void StartGame()
+    private async void StartGame()
     {
+        if(GloabalServices.Instance.TryGetService<LoadingScreen>(out var loadingScreen))
+        {
+            await loadingScreen.ActivateScreen();
+        }
+
         SceneManager.LoadScene("PlayMode");
     }
 
     private void Quit()
     {
+        Debug.Log("Quit");
         Application.Quit();
     }
 }

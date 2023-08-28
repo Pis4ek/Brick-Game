@@ -10,6 +10,7 @@ namespace PlayMode.Bricks
     {
         public event Action OnResetedEvent;
         public event Action<float> OnMovedEvent;
+        public event Action OnCanNotFall;
         public event Action OnFullDownMovedEvent;
         public event Action OnFullDownPositionUpdatedEvent;
 
@@ -56,6 +57,7 @@ namespace PlayMode.Bricks
                 else
                 {
                     _data.IsLanded = true;
+                    OnCanNotFall?.Invoke();
                 }
             }
 
@@ -118,17 +120,6 @@ namespace PlayMode.Bricks
             }
 
             return false;
-        }
-
-        public string ShapeToString()
-        {
-            var message = "BRICK TEST_SHAPE:\n";
-            foreach (var block in _data.Shape)
-            {
-                message += $"(L({block.LocalCoordinates.x},{block.LocalCoordinates.y}) " +
-                    $"G({block.Coordinates.x},{block.Coordinates.y})) \n";
-            }
-            return message;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using PlayMode.Bricks;
+﻿using DG.Tweening;
+using PlayMode.Bricks;
 using System.Collections;
 using UnityEngine;
 
@@ -42,19 +43,7 @@ namespace PlayMode.Map
 
         private void MoveBlock()
         {
-            //transform.position = _converter.MapCoordinatesToWorld(_block.Coordinates);
-            StartCoroutine(MoveAnimation());
-        }
-
-        private IEnumerator MoveAnimation()
-        {
-            var targetPosition = _converter.MapCoordinatesToWorld(_block.Coordinates);
-
-            for (float i = 0f; i <= 1; i += 0.1f)
-            {
-                transform.position = Vector3.Lerp(transform.position, targetPosition, i);
-                yield return new WaitForSeconds(0.02f);
-            }
+            transform.DOMove(_converter.MapCoordinatesToWorld(_block.Coordinates), 0.15f);
         }
     }
 }

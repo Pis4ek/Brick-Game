@@ -10,7 +10,7 @@ namespace PlayMode.Bricks
         private Brick _brick;
         private CoordinateConverter _converter;
         private BrickData _data;
-        private Queue<BrickAnimation> _animationQueue;
+        private Queue<BrickAnimationDoTween> _animationQueue;
         private ObjectPool<Transform> _blockPool;
         private ObjectPool<BlockView> _transparentBlocksPool;
         private bool _isAnimating = false;
@@ -22,7 +22,7 @@ namespace PlayMode.Bricks
             var transparentblockPrefab = Resources.Load<GameObject>("TransparentBlockObject").GetComponent<BlockView>();
             _transparentBlocksPool = new ObjectPool<BlockView>(transparentblockPrefab, 16, transform, "Transparent_block");
 
-            _animationQueue = new Queue<BrickAnimation>();
+            _animationQueue = new Queue<BrickAnimationDoTween>();
             _brick = brick;
             _converter = converter;
             _data = data;
@@ -30,41 +30,50 @@ namespace PlayMode.Bricks
             _brick.OnMovedEvent += MoveView;
             _brick.OnResetedEvent += ResetView;
             _brick.OnFullDownPositionUpdatedEvent += UpdateFallingView;
+            _brick.OnCanNotFall += () => {
+                if (_data.IsLanded && _isAnimating == false && _animationQueue.Count == 0)
+                {
+                    _data.SendBrickLandedEvent();
+                }
+            };
 
             return this;
         }
 
-        private void FixedUpdate()
+        private void MoveView(float time)
         {
-            if(_isAnimating == false && _animationQueue.Count > 0)
+            time = time * (1 - _animationQueue.Count * 0.15f);
+            _animationQueue.Enqueue(new BrickAnimationDoTween(_converter, _data, time));
+
+            CheckAnimations();
+        }
+
+        private void CheckAnimations()
+        {
+            if (_isAnimating == false && _animationQueue.Count > 0)
             {
                 _isAnimating = true;
                 var animation = _animationQueue.Dequeue();
-                StartCoroutine(animation.Animate());
+                animation.Animate();
 
                 animation.OnAnimationEndedEvent += () =>
-                { 
+                {
                     _isAnimating = false;
-                    animation = null;
+                    if (_animationQueue.Count > 0)
+                    {
+                        CheckAnimations();
+                    }
+                    if (_data.IsLanded && _isAnimating == false && _animationQueue.Count == 0)
+                    {
+                        _data.SendBrickLandedEvent();
+                    }
                 };
             }
-            else if (_data.IsLanded && _isAnimating == false && _animationQueue.Count == 0)
-            {
-                _data.SendBrickLandedEvent();
-            }
 
-        }
-
-        private void MoveView(float time)
-        {
-            time = time * (1 - _animationQueue.Count * 0.1f);
-
-            _animationQueue.Enqueue(new BrickAnimation(_converter, _data, time));
         }
 
         private void ResetView()
         {
-            StopAllCoroutines();
             _isAnimating = false;
 
             _blockPool.HideAllElements();

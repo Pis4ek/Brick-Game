@@ -7,6 +7,7 @@ using PlayMode.Level;
 using PlayMode.Map;
 using PlayMode.Score;
 using PlayMode.View;
+using Services.LoadingScreen;
 using Services.Timer;
 using System;
 using System.Diagnostics;
@@ -35,7 +36,7 @@ public class PlayModeEntryPoint : MonoBehaviour, IGameStateEvents
 
     private GameState _state = GameState.Uninitialized;
 
-    private void Awake()
+    private async void Awake()
     {
         var stopWatch = new Stopwatch();
 
@@ -44,6 +45,11 @@ public class PlayModeEntryPoint : MonoBehaviour, IGameStateEvents
         stopWatch.Stop();
         UnityEngine.Debug.Log($"Init time: {stopWatch.ElapsedMilliseconds}");
         _initTimeText.text = $"Init time: {stopWatch.ElapsedMilliseconds}";
+
+        if (GloabalServices.Instance.TryGetService<LoadingScreen>(out var loadingScreen))
+        {
+            await loadingScreen.DisactivateScreen();
+        }
 
         State = GameState.Playing;
         OnGameStartedEvent?.Invoke();
