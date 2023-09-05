@@ -1,5 +1,6 @@
 ﻿using Services.LoadingScreen;
 using UnityEngine;
+using DG.Tweening;
 
 namespace MainMenu
 {
