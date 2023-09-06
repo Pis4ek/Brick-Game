@@ -6,6 +6,8 @@ using TMPro;
 public class SettingsMenuController : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown _qualityPresetDropdown;
+    [SerializeField] private TMP_Dropdown _controlsPresetDropdown;
+
     private void Awake()
     {
         _qualityPresetDropdown.ClearOptions();

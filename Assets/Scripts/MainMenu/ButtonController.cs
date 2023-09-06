@@ -11,18 +11,27 @@ public class ButtonController : MonoBehaviour
     [SerializeField] Button _settingsButton;
     [SerializeField] Button _brickEditorButton;
     [SerializeField] Button _quitButton;
-
+    [Space(20)]
+    [SerializeField] float _TransitionDelay;
+    [Space(20)]
     [SerializeField] Transform _settingsMenu;
+    [SerializeField] Transform _scoreTableMenu;
 
-    private CanvasGroup _settingsCanvasGroup;
+    private Transform _lastActiveMenu;
     private void Awake()
     {
-        _settingsCanvasGroup = _settingsMenu.GetComponent<CanvasGroup>();
+        CanvasGroup CanvasGroup = _settingsMenu.GetComponent<CanvasGroup>();
+        _settingsMenu.localPosition = new Vector3(1000, 0, 0);
+        CanvasGroup.alpha = 0;
+        CanvasGroup.interactable = false;
 
-        _settingsCanvasGroup.alpha = 0;
-        _settingsCanvasGroup.interactable = false;
+        CanvasGroup = _scoreTableMenu.GetComponent<CanvasGroup>();
+        _scoreTableMenu.localPosition = new Vector3(1000,0,0);
+        CanvasGroup.alpha = 0;
+        CanvasGroup.interactable = false;
 
         _startButton.onClick.AddListener(StartGame);
+        _scoreTableButton.onClick.AddListener(ScoreTableButtonClicked);
         _settingsButton.onClick.AddListener(SettingsButtonClicked);
         _quitButton.onClick.AddListener(Quit);
     }
@@ -31,17 +40,22 @@ public class ButtonController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-            _settingsCanvasGroup.interactable = false;
-            _settingsMenu.DOLocalMoveX(1000, 1f);
-            _settingsCanvasGroup.DOFade(0, 1f);
+            CanvasGroup menuCanvasGroup = _lastActiveMenu.GetComponent<CanvasGroup>();
+            menuCanvasGroup.interactable = false;
+            _lastActiveMenu.DOLocalMoveX(1000, _TransitionDelay);
+            menuCanvasGroup.DOFade(0, _TransitionDelay);
+            _lastActiveMenu = null;
         }
     }
 
-    private void SettingsButtonClicked() 
+    private void ScoreTableButtonClicked() 
     {
-        _settingsMenu.DOLocalMoveX(0, 1f)
-            .OnComplete(() => { _settingsCanvasGroup.interactable = true; });
-        _settingsCanvasGroup.DOFade(1, 1f);
+        MoveAndActivateMenu(_scoreTableMenu);
+    }
+
+    private void SettingsButtonClicked()
+    {
+        MoveAndActivateMenu(_settingsMenu);
     }
 
     private async void StartGame()
@@ -58,5 +72,14 @@ public class ButtonController : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    private void MoveAndActivateMenu(Transform menu)
+    {
+        _lastActiveMenu = menu;
+        CanvasGroup menuCanvasGroup = menu.GetComponent<CanvasGroup>();
+        menu.DOLocalMoveX(0, _TransitionDelay)
+            .OnComplete(() => { menuCanvasGroup.interactable = true; });
+        menuCanvasGroup.DOFade(1, _TransitionDelay);
     }
 }
