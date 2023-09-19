@@ -4,6 +4,7 @@ using Services.Timer;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 namespace PlayMode.View
 {
@@ -24,8 +25,8 @@ namespace PlayMode.View
             _level = level;
 
             _score.OnValueChangedEvent += delegate () { _scoreText.text = $"Score\n{_score.Score:d5}"; };
-            _timer.OnSecondTickedEvent += delegate () { _timerText.text = $"Time\n{_timer.GameTime}"; };
-            _level.OnValueChangedEvent += delegate () { _levelText.text = $"Level\n{_level.Level:d2}"; };
+            _timer.SecondsSinceStart.Subscribe(_ => { _timerText.text = $"Time\n{_timer.GameTime}"; }).AddTo(this);
+            _level.Level.Subscribe(_ => { _levelText.text = $"Level\n{_level.Level:d2}"; }).AddTo(this);
 
             return this;
         }

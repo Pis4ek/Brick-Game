@@ -2,6 +2,7 @@
 using PlayMode.BrickSpawnerElements;
 using PlayMode.Map;
 using System;
+using UniRx;
 
 namespace PlayMode
 {
@@ -12,27 +13,29 @@ namespace PlayMode
         private BrickSpawnerData _data;
         private BrickSpawningPredicator _brickPredicator;
         private IResetableBrick _brick;
-        private IGameStateEvents _gameState;
+        private IGameState _gameState;
+        private IGameEndingControl _gameEndingControl;
 
         public BrickSpawner(BrickSpawnerData data, IResetableBrick brick, 
-            IReadOnlyBrickData brickData, IGameStateEvents gameStateEvents)
+            IReadOnlyBrickData brickData, IGameState gameState, IGameEndingControl gameEndingControl)
         {
             _brick = brick;
             _data = data;
-            _gameState = gameStateEvents;
+            _gameState = gameState;
             _brickPredicator = new BrickSpawningPredicator(_data);
+            _gameEndingControl = gameEndingControl;
 
             brickData.OnBrickLandedEvent += SpawnNextBrick;
-            gameStateEvents.OnGameStartedEvent += SpawnNextBrick;
+            gameState.OnGameStartedEvent += SpawnNextBrick;
         }
 
         public void SpawnCurrentBrick()
         {
-            if(_gameState.State == GameState.Playing)
+            if(_gameState.State.Value == GameStateType.Playing)
             {
                 if (_brick.ResetBrick(_data.SpawnPoint, _data.CurrentBrick) == false)
                 {
-                    OnBrickCanNotSpawnEvent?.Invoke();
+                    _gameEndingControl.TryEndGame();
                 }
             }
         }

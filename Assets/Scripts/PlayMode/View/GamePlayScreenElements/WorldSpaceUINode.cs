@@ -3,7 +3,6 @@ using PlayMode.BrickSpawnerElements;
 using PlayMode.GameResultCalculation;
 using PlayMode.Level;
 using PlayMode.Score;
-using PlayMode.View.GamePlayScreenElements;
 using Services.Timer;
 using UnityEngine;
 
@@ -20,8 +19,6 @@ namespace PlayMode.View
         private GameObject _holdButton;
         private GameObject _leaderboardView;
 
-        private IUIPanelState _currentState;
-
         public WorldSpaceUINode Init(BrickSpawningHolder brickHolder, BrickSpawnerData brickSpawnerData, 
             IReadOnlyScoreData scoreData, IReadOnlyTimerData timer, IReadOnlyLevelData level, 
             GameResultCalculator gameResult)
@@ -33,26 +30,35 @@ namespace PlayMode.View
             _holdButton.GetComponent<BrickHolderView>().Init(brickHolder);
             _leaderboardView = GetComponentInChildren<LeaderboardView>(true).Init(true).gameObject;
 
-            _currentState = new PlayState(_infoPanel, _widgets, _brickPredication, _holdButton);
             return this;
         }
 
-        public void UpdateState(GameState gameState)
+        public void UpdateState(GameStateType gameState)
         {
-            _currentState.Exit();
-            if (gameState == GameState.Ended)
+            _endGamePanel.transform.Disactivate();
+            _infoPanel.transform.Disactivate();
+            _widgets.transform.Disactivate();
+            _brickPredication.transform.Disactivate();
+            _holdButton.transform.Disactivate();
+            _shading.transform.Disactivate();
+            _leaderboardView.transform.Disactivate();
+
+            if (gameState == GameStateType.Ended)
             {
-                _currentState = new EndGameState(_endGamePanel);
+                _endGamePanel.transform.Activate();
             }
-            else if (gameState == GameState.Paused)
+            else if (gameState == GameStateType.Paused)
             {
-                _currentState = new PauseState(_infoPanel, _widgets, _brickPredication, _shading, _leaderboardView);
+                _shading.transform.Activate();
+                _leaderboardView.transform.Activate();
             }
             else
             {
-                _currentState = new PlayState(_infoPanel, _widgets, _brickPredication, _holdButton);
+                _infoPanel.transform.Activate();
+                _widgets.transform.Activate();
+                _brickPredication.transform.Activate();
+                _holdButton.transform.Activate();
             }
-            _currentState.Enter();
         }
     }
 }

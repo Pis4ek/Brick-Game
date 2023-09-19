@@ -1,26 +1,27 @@
 ﻿using System;
-using System.Collections;
-using UnityEngine;
+using UniRx;
 
 namespace Services.Timer
 {
     public class TimerData : IReadOnlyTimerData
     {
         public event Action OnFallingTimeTickedEvent;
-        public event Action OnSecondTickedEvent;
-        public event Action OnMinuteTickedEvent;
 
-        public float FallingTimeStep { get; set; } = 1f;
-        public float TimeSinceStart { get; set; } = 0f;
-        public int SecondsSinceStart { get; set; } = 0;
-        public int Seconds { get; set; } = 0;
-        public int MinutesSinceStart { get; set; } = 0;
-        public GameTime GameTime => new GameTime(MinutesSinceStart, Seconds);
+        public IReadOnlyReactiveProperty<float> FallingTimeStep => fallingTimeStep;
+        public IReadOnlyReactiveProperty<float> TimeSinceStart => timeSinceStart;
+        public IReadOnlyReactiveProperty<int> SecondsSinceStart => secondsSinceStart;
+        public IReadOnlyReactiveProperty<int> Seconds => seconds;
+        public IReadOnlyReactiveProperty<int> MinutesSinceStart => minutesSinceStart;
+        public GameTime GameTime => new GameTime(minutesSinceStart.Value, seconds.Value);
         public bool IsTimerStarted { get; set; } = false;
 
+        public ReactiveProperty<float> fallingTimeStep = new ReactiveProperty<float>(1f);
+        public ReactiveProperty<float> timeSinceStart = new ReactiveProperty<float>(0f);
+        public ReactiveProperty<int> secondsSinceStart = new ReactiveProperty<int>(0);
+        public ReactiveProperty<int> seconds = new ReactiveProperty<int>(0);
+        public ReactiveProperty<int> minutesSinceStart = new ReactiveProperty<int>(0);
+
         public void SendFallingTimeTick() => OnFallingTimeTickedEvent?.Invoke();
-        public void SendSecondTick() => OnSecondTickedEvent?.Invoke();
-        public void SendMinuteTick() => OnMinuteTickedEvent?.Invoke();
         
     }
 }

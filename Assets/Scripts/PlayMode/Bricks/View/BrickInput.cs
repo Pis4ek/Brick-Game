@@ -1,6 +1,7 @@
 ﻿using Services.Timer;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 namespace PlayMode.Bricks
 {
@@ -13,19 +14,16 @@ namespace PlayMode.Bricks
         [SerializeField] Button _fullDownButton;
 
         private IControllableBrick _brick;
-        private IReadOnlyTimerData _timer;
 
-        public BrickInput Init(IControllableBrick brick, IReadOnlyTimerData timer)
+        public BrickInput Init(IControllableBrick brick, IReadOnlyTimerData timerData)
         {
             _brick = brick;
-            _timer = timer;
 
-            timer.OnFallingTimeTickedEvent += () => _brick.DownMove();
+            timerData.OnFallingTimeTickedEvent += delegate() { _brick.DownMove(); };
 
             _lMoveButton.onClick.AddListener(() => _brick.LeftMove());
             _dMoveButton.onClick.AddListener(() => _brick.DownMove());
             _rMoveButton.onClick.AddListener(() => _brick.RightMove());
-
             _rotationButton.onClick.AddListener(() => _brick.Rotate());
             _fullDownButton.onClick.AddListener(() => _brick.FullDownMove());
 
@@ -54,6 +52,24 @@ namespace PlayMode.Bricks
             {
                 _brick.FullDownMove();
             }
+        }
+
+        public void ShowButtons()
+        {
+            _lMoveButton.Activate();
+            _dMoveButton.Activate();
+            _rMoveButton.Activate();
+            _rotationButton.Activate();
+            _fullDownButton.Activate();
+        }
+
+        public void HideButtons()
+        {
+            _lMoveButton.Disactivate();
+            _dMoveButton.Disactivate();
+            _rMoveButton.Disactivate();
+            _rotationButton.Disactivate();
+            _fullDownButton.Disactivate();
         }
     }
 }

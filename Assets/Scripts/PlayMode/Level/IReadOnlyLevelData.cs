@@ -1,11 +1,10 @@
 ﻿using System;
+using UniRx;
 
 namespace PlayMode.Level
 {
     public interface IReadOnlyLevelData
     {
-        public event Action OnValueChangedEvent;
-
-        public int Level { get; }
+        public IReadOnlyReactiveProperty<int> Level { get; }
     }
 }

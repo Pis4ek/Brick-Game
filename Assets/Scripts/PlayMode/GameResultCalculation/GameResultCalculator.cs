@@ -3,7 +3,7 @@ using PlayMode.Score;
 using Services;
 using Services.Timer;
 using System;
-using UnityEngine;
+using UniRx;
 
 namespace PlayMode.GameResultCalculation
 {
@@ -15,10 +15,13 @@ namespace PlayMode.GameResultCalculation
         private IReadOnlyScoreData _scoreData;
         private Leaderboard _leaderboard;
 
-        public GameResultCalculator(IGameStateEvents gameEvents, IReadOnlyTimerData timer, 
+        public GameResultCalculator(IGameState gameEvents, IReadOnlyTimerData timer, 
             IReadOnlyScoreData scoreData, Leaderboard leaderboard)
         {
-            gameEvents.OnGameEndedEvent += CalculateResult;
+            gameEvents.State
+                .Where(value => value == GameStateType.Ended)
+                .Subscribe(value => { CalculateResult(); });
+
             _timer = timer;
             _scoreData = scoreData;
             _leaderboard = leaderboard;

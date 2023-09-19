@@ -14,6 +14,7 @@ namespace LeaderboardComponents
 
         public LeaderboardView Init(bool isClassicGame)
         {
+            TryDestroyElements();
             _elements = new List<LeaderboardViewElement>(10);
             _leaderboard = new Leaderboard(isClassicGame);
             LoadPrefab();
@@ -22,6 +23,7 @@ namespace LeaderboardComponents
 
         public LeaderboardView Init(Leaderboard leaderboard)
         {
+            TryDestroyElements();
             _elements = new List<LeaderboardViewElement>(10);
             _leaderboard = leaderboard;
             LoadPrefab();
@@ -62,6 +64,17 @@ namespace LeaderboardComponents
 
                 _elements.Add(element);
                 i++;
+            }
+        }
+
+        private void TryDestroyElements()
+        {
+            if (_elements != null)
+            {
+                foreach (var element in _elements)
+                {
+                    Destroy(element.gameObject);
+                }
             }
         }
     }

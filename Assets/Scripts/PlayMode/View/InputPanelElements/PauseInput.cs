@@ -17,13 +17,15 @@ namespace PlayMode.View
         public bool IsPaused { get; private set; }
 
         private Button _pauseButton;
+        private IPauseControl _pauseControl;
 
-        public PauseInput Init()
+        public PauseInput Init(IPauseControl pauseControl)
         {
             _pauseButton = GetComponent<Button>();
             _pauseButton.onClick.AddListener(Pause);
+            _pauseControl = pauseControl;
 
-            
+
 
             return this;
         }
@@ -33,6 +35,8 @@ namespace PlayMode.View
             IsPaused = !IsPaused;
             _buttonIcon.sprite =  IsPaused ? _playIcon :_pauseIcon;
             OnValueChangedEvent?.Invoke();
+
+            _pauseControl.SetPause();
         }
 
         private async void LoadSprites()

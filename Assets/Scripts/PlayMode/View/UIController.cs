@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using UniRx;
 
 namespace PlayMode.View
 {
@@ -7,16 +7,15 @@ namespace PlayMode.View
         private ScreenSpaceUINode _downInputPanel;
         private WorldSpaceUINode _playInfoPanel;
 
-        public UIController(IGameStateEvents gameStateEvents, ScreenSpaceUINode downInputPanel, WorldSpaceUINode playInfoPanel)
+        public UIController(IGameState gameStateEvents, ScreenSpaceUINode downInputPanel, WorldSpaceUINode playInfoPanel)
         {
             _downInputPanel = downInputPanel;
             _playInfoPanel = playInfoPanel;
 
-            gameStateEvents.OnValueChangedEvent += delegate ()
-            {
-                _downInputPanel.UpdateState(gameStateEvents.State);
-                _playInfoPanel.UpdateState(gameStateEvents.State);
-            };
+            gameStateEvents.State.Subscribe(value => {
+                _downInputPanel.UpdateState(gameStateEvents.State.Value);
+                _playInfoPanel.UpdateState(gameStateEvents.State.Value);
+            });
         }
     }
 }

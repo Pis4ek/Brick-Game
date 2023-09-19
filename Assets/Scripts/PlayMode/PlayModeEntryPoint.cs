@@ -13,46 +13,32 @@ using System;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
-public class PlayModeEntryPoint : MonoBehaviour, IGameStateEvents
+public class PlayModeEntryPoint : MonoBehaviour
 {
-    public event Action OnValueChangedEvent;
-    public event Action OnGameStartedEvent;
-    public event Action OnGameEndedEvent;
-    public event Action OnGamePausedEvent;
-    public event Action OnGameUnpausedEvent;
-
     [SerializeField] GameObject _interfaceGameObject;
     [SerializeField] Text _initTimeText;
 
-    public GameState State {
-        get { return _state; } 
-        private set 
-        {
-            _state = value;
-            OnValueChangedEvent?.Invoke();
-        } 
-    }
+    private GameStateHolder _gameStateHolder = new GameStateHolder();
 
-    private GameState _state = GameState.Uninitialized;
-
-    private async void Awake()
+    private async void Start()
     {
         var stopWatch = new Stopwatch();
 
         stopWatch.Start();
         Init();
         stopWatch.Stop();
-        UnityEngine.Debug.Log($"Init time: {stopWatch.ElapsedMilliseconds}");
+
         _initTimeText.text = $"Init time: {stopWatch.ElapsedMilliseconds}";
 
-        if (GloabalServices.Instance.TryGetService<LoadingScreen>(out var loadingScreen))
-        {
-            await loadingScreen.DisactivateScreen();
-        }
+        /*        if (GloabalServices.Instance.TryGetService<LoadingScreen>(out var loadingScreen))
+                {
+                    await loadingScreen.DisactivateScreen();
+                }*/
 
-        State = GameState.Playing;
-        OnGameStartedEvent?.Invoke();
+        _gameStateHolder.state.Value = GameStateType.Playing;
+        _gameStateHolder.SendStartGame();
     }
 
     private void Init()
@@ -69,46 +55,28 @@ public class PlayModeEntryPoint : MonoBehaviour, IGameStateEvents
         #endregion
 
         #region LOGIC
-        var timer = AddObject("Timer").AddComponent<Timer>().Init(timerData, levelData, this);
+        var timer = AddObject("Timer").AddComponent<Timer>().Init(timerData, levelData, _gameStateHolder);
         var gameMap = new BlockMap(blockMapData);
         var converter = new CoordinateConverter(blockMapData.CellSize, blockMapData.WorldStartMap);
         var scoreCounter = new ScoreCounter(scoreData, gameMap, timerData);
-        var levelCounter = new LevelCounter(levelData, scoreData);
+        var levelCounter = new LevelCounter(levelData, scoreData, timerData);
         var brick = new Brick(gameMap, brickData);
-        var brickSpawner = new BrickSpawner(brickSpawnerData, brick, brickData, this);
-        brickSpawner.OnBrickCanNotSpawnEvent += delegate ()
-        {
-            State = GameState.Ended;
-            OnGameEndedEvent?.Invoke();
-        };
+        var brickSpawner = new BrickSpawner(brickSpawnerData, brick, brickData, _gameStateHolder, _gameStateHolder);
         var brickSpawningHolder = new BrickSpawningHolder(brickSpawner, brickSpawnerData);
         var leaderboard = new Leaderboard(true);
-        var gameResultCalculator = new GameResultCalculator(this, timerData, scoreData, leaderboard);
+        var gameResultCalculator = new GameResultCalculator(_gameStateHolder, timerData, scoreData, leaderboard);
         #endregion
 
         #region VIEW
         brickGO.AddComponent<BrickView>().Init(brick, converter, brickData);
 
         var pauseInput = _interfaceGameObject.GetComponentInChildren<PauseInput>();
-        pauseInput.OnValueChangedEvent += delegate ()
-        {
-            if (pauseInput.IsPaused)
-            {
-                State = GameState.Paused;
-                OnGamePausedEvent?.Invoke();
-            }
-            else
-            {
-                State = GameState.Playing;
-                OnGameUnpausedEvent?.Invoke();
-            }
-        };
 
         var worldSpaceUINode = _interfaceGameObject.GetComponentInChildren<WorldSpaceUINode>()
             .Init(brickSpawningHolder, brickSpawnerData, scoreData, timerData, levelData, gameResultCalculator);
-        var screenSpaceUINode = _interfaceGameObject.GetComponentInChildren<ScreenSpaceUINode>().Init(brick, timerData);
+        var screenSpaceUINode = _interfaceGameObject.GetComponentInChildren<ScreenSpaceUINode>().Init(brick, timerData, _gameStateHolder);
 
-        var uiController = new UIController(this, screenSpaceUINode, worldSpaceUINode);
+        var uiController = new UIController(_gameStateHolder, screenSpaceUINode, worldSpaceUINode);
         #endregion
     }
 

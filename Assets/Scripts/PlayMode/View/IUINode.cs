@@ -2,6 +2,6 @@
 {
     public interface IUINode
     {
-        public void UpdateState(GameState gameState);
+        public void UpdateState(GameStateType gameState);
     }
 }

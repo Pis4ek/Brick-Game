@@ -1,6 +1,7 @@
 using PlayMode;
 using PlayMode.Level;
 using System;
+using UniRx;
 using UnityEngine;
 
 namespace Services.Timer
@@ -9,19 +10,22 @@ namespace Services.Timer
     {
         private TimerData _data;
         private float _fallingTimeCounter = 0;
-        private IReadOnlyLevelData _levelData;
+        private CompositeDisposable disposables = new CompositeDisposable();
 
-        public Timer Init(TimerData data, IReadOnlyLevelData levelData, IGameStateEvents gameEvents)
+        public Timer Init(TimerData data, IReadOnlyLevelData levelData, IGameState gameState)
         {
-            gameEvents.OnGameStartedEvent += StartTimer;
-            gameEvents.OnGameEndedEvent += StopTimer;
-            gameEvents.OnGameUnpausedEvent += StartTimer;
-            gameEvents.OnGamePausedEvent += StopTimer;
-
-            _levelData = levelData;
-            levelData.OnValueChangedEvent += SetLevelTimeStep;
-
             _data = data;
+
+            //gameState.OnGameStartedEvent += () => { _data.IsTimerStarted = true; };
+            gameState.State.Subscribe(value =>
+            {
+                if (value == GameStateType.Playing)
+                    _data.IsTimerStarted = true;
+                else
+                    _data.IsTimerStarted = false;
+            }).AddTo(disposables);
+
+            levelData.Level.Subscribe(value => { _data.fallingTimeStep.Value = 1 - 0.02f * value; }).AddTo(disposables);
 
             return this;
         }
@@ -30,44 +34,27 @@ namespace Services.Timer
         {
             if (_data.IsTimerStarted)
             {
-                _data.TimeSinceStart += Time.fixedDeltaTime;
+                _data.timeSinceStart.Value += Time.fixedDeltaTime;
                 _fallingTimeCounter += Time.fixedDeltaTime;
-                if (_data.TimeSinceStart > _data.SecondsSinceStart + 1)
+                if (_data.timeSinceStart.Value > _data.secondsSinceStart.Value + 1)
                 {
-                    _data.SecondsSinceStart++;
-                    _data.Seconds++;
-                    if(_data.Seconds >= 60)
+                    _data.secondsSinceStart.Value++;
+                    _data.seconds.Value++;
+                    if(_data.seconds.Value >= 60)
                     {
-                        _data.Seconds = 0;
-                        _data.MinutesSinceStart++;
-                        _data.SendMinuteTick();
+                        _data.seconds.Value = 0;
+                        _data.minutesSinceStart.Value++;
                     }
-                    _data.SendSecondTick();
                 }
-                if (_data.TimeSinceStart / 60 > _data.MinutesSinceStart + 1)
+                if (_data.timeSinceStart.Value / 60 > _data.minutesSinceStart.Value + 1)
                 {
                 }
-                if(_fallingTimeCounter > _data.FallingTimeStep)
+                if(_fallingTimeCounter > _data.fallingTimeStep.Value)
                 {
-                    _fallingTimeCounter -= _data.FallingTimeStep;
+                    _fallingTimeCounter -= _data.fallingTimeStep.Value;
                     _data.SendFallingTimeTick();
                 }
             }
-        }
-
-        private void StartTimer()
-        {
-            _data.IsTimerStarted = true;
-        }
-
-        private void StopTimer()
-        {
-            _data.IsTimerStarted = false;
-        }
-
-        private void SetLevelTimeStep()
-        {
-            _data.FallingTimeStep = 1 - 0.05f * _levelData.Level;
         }
     }
 }

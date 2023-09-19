@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace LeaderboardComponents
 {
@@ -10,18 +11,18 @@ namespace LeaderboardComponents
     public class LeaderboardViewElement : MonoBehaviour
     {
         public Image Image { get; private set; }
-        public Text PlaceText { get; private set; }
-        public Text ScoreText { get; private set; }
-        public Text TimeText { get; private set; }
-        public Text DateText { get; private set; }
+        public TextMeshProUGUI PlaceText { get; private set; }
+        public TextMeshProUGUI ScoreText { get; private set; }
+        public TextMeshProUGUI TimeText { get; private set; }
+        public TextMeshProUGUI DateText { get; private set; }
 
         public LeaderboardViewElement Init()
         {
             Image = GetComponent<Image>();
-            PlaceText = transform.GetChild(0).GetComponent<Text>();
-            ScoreText = transform.GetChild(1).GetComponent<Text>();
-            TimeText = transform.GetChild(2).GetComponent<Text>();
-            DateText = transform.GetChild(3).GetComponent<Text>();
+            PlaceText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            ScoreText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+            TimeText = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+            DateText = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
 
             return this;
         }
@@ -40,6 +41,13 @@ namespace LeaderboardComponents
             ScoreText.text = "---";
             TimeText.text = "---";
             DateText.text = "---";
+        }
+        public void UpdateText(string colName1, string colName2, string colName3, string colName4)
+        {
+            PlaceText.text = colName1;
+            ScoreText.text = colName2;
+            TimeText.text = colName3;
+            DateText.text = colName4;
         }
     }
 }
