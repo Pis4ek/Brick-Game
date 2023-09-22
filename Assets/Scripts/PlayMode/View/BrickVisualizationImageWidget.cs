@@ -8,7 +8,7 @@ namespace PlayMode.View
         [SerializeField] Color _baseColor = new Color(0.25f, 0.25f, 0.25f);
         [SerializeField] bool _visualiseDeactivatedElements = true;
 
-        private RawImage[,] _images;
+        private Image[,] _images;
 
         public BrickVisualizationImageWidget Init()
         {
@@ -37,7 +37,7 @@ namespace PlayMode.View
             }
         }
 
-        private void SetDeactivatedBlock(RawImage image)
+        private void SetDeactivatedBlock(Image image)
         {
             if (_visualiseDeactivatedElements)
             {
@@ -51,7 +51,7 @@ namespace PlayMode.View
 
         private void InitializeImages()
         {
-            _images = new RawImage[4, 4];
+            _images = new Image[4, 4];
 
             for (int y = 0; y < 4; y++)
             {
@@ -59,13 +59,13 @@ namespace PlayMode.View
 
                 for (int x = 0; x < 4; x++)
                 {
-                    if (line.GetChild(x).TryGetComponent<RawImage>(out var image))
+                    if (line.GetChild(x).TryGetComponent<Image>(out var image))
                     {
                         _images[y, x] = image;
                     }
                     else
                     {
-                        _images[y, x] = line.GetChild(x).gameObject.AddComponent<RawImage>();
+                        _images[y, x] = line.GetChild(x).gameObject.AddComponent<Image>();
                     }
                     _images[y, x].color = _baseColor;
                 }

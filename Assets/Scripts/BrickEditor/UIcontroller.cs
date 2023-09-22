@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Rendering;
 using System;
+using System.IO;
 
 public class UIcontroller : MonoBehaviour
 {
     [SerializeField] private Camera _brickCamera;
     [SerializeField] private RenderTexture renderTexture;
+    [SerializeField] private string _textureName;
 
     private List<BrickConfig> _items = new List<BrickConfig>();
 
@@ -43,6 +45,11 @@ public class UIcontroller : MonoBehaviour
         StartCoroutine(GetRenderTexture());
     }
 
+    [ContextMenu("Render")]
+    private void StartRender()
+    {
+        StartCoroutine(GetRenderTexture());
+    }
 
     IEnumerator GetRenderTexture()
     {
@@ -64,7 +71,7 @@ public class UIcontroller : MonoBehaviour
                 colors[index] = color;
             }
 
-            float intensity = 0.15f; // Интенсивность свечения
+            /*float intensity = 0.15f; // Интенсивность свечения
             Color32 glowColor = Color.white; // Цвет свечения
 
             for (int index = 0; index < colors.Length; index++)
@@ -72,7 +79,7 @@ public class UIcontroller : MonoBehaviour
                 Color32 originalColor = colors[index];
                 Color32 finalColor = Color32.Lerp(originalColor, glowColor, intensity);
                 colors[index] = finalColor;
-            }
+            }*/
 
             ImageBuf.SetPixels32(colors);
             ImageBuf.Apply();
@@ -84,5 +91,12 @@ public class UIcontroller : MonoBehaviour
     private void CreateBrickSave(Texture2D imageBuf)
     {
         //_items.Add(new BrickConfig("Save", imageBuf));
+        byte[] bytes = imageBuf.EncodeToPNG();
+
+        // Укажите путь и имя файла для сохранения
+        string filePath = Path.Combine(Application.persistentDataPath, _textureName + ".png");
+
+        // Запишите байты в файл
+        File.WriteAllBytes(filePath, bytes);
     }
 }

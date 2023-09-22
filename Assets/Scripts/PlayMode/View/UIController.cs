@@ -4,10 +4,10 @@ namespace PlayMode.View
 {
     public class UIController
     {
-        private ScreenSpaceUINode _downInputPanel;
-        private WorldSpaceUINode _playInfoPanel;
+        private InputUINode _downInputPanel;
+        private GamePlayUINode _playInfoPanel;
 
-        public UIController(IGameState gameStateEvents, ScreenSpaceUINode downInputPanel, WorldSpaceUINode playInfoPanel)
+        public UIController(IGameState gameStateEvents, InputUINode downInputPanel, GamePlayUINode playInfoPanel)
         {
             _downInputPanel = downInputPanel;
             _playInfoPanel = playInfoPanel;

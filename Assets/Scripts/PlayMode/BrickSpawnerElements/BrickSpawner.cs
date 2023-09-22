@@ -8,8 +8,6 @@ namespace PlayMode
 {
     public class BrickSpawner
     {
-        public event Action OnBrickCanNotSpawnEvent;
-
         private BrickSpawnerData _data;
         private BrickSpawningPredicator _brickPredicator;
         private IResetableBrick _brick;

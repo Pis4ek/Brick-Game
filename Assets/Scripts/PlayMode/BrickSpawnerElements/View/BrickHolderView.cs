@@ -7,8 +7,9 @@ namespace PlayMode.View
 {
     public class BrickHolderView : MonoBehaviour
     {
-        [SerializeField] BrickVisualizationGOWidget _widget;
+        [SerializeField] BrickVisualizationImageWidget _widget;
         [SerializeField] Text _title;
+        [SerializeField] Button _saveButton;
 
 
         private BrickSpawningHolder _holder;
@@ -18,6 +19,10 @@ namespace PlayMode.View
             _holder = holder;
             _widget.Init();
             _widget.gameObject.SetActive(false);
+
+
+
+            _saveButton.onClick.AddListener(holder.HoldCurrentBrick);
 
             _holder.OnBrickHeldEvent += UpdateWidget;
 

@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace PlayMode.View
 {
-    public class ScreenSpaceUINode : MonoBehaviour, IUINode
+    public class InputUINode : MonoBehaviour, IUINode
     {
         private BrickInput _brickInput;
         private PauseInput _pauseInput;
         private PauseMenuButtonsInput _otherButtons;
 
-        public ScreenSpaceUINode Init(IControllableBrick brick, IReadOnlyTimerData timer, IPauseControl pauseControl)
+        public InputUINode Init(IControllableBrick brick, IReadOnlyTimerData timer, IPauseControl pauseControl)
         {
             _brickInput = GetComponentInChildren<BrickInput>(true).Init(brick, timer);
             _pauseInput = GetComponentInChildren<PauseInput>(true).Init(pauseControl);

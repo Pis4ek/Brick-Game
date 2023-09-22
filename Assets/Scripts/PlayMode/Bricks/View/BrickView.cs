@@ -1,12 +1,14 @@
 ﻿using PlayMode.Map;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace PlayMode.Bricks
 {
     public class BrickView : MonoBehaviour
     {
+        [SerializeField] VisualEffect _visualEffect;
+
         private Brick _brick;
         private CoordinateConverter _converter;
         private BrickData _data;
@@ -40,10 +42,18 @@ namespace PlayMode.Bricks
             return this;
         }
 
-        private void MoveView(float time)
+        private void MoveView(BrickAnimationType type)
         {
-            time = time * (1 - _animationQueue.Count * 0.15f);
-            _animationQueue.Enqueue(new BrickAnimationDoTween(_converter, _data, time));
+            var time = 0.15f * (1 - _animationQueue.Count * 0.15f);
+
+            if (type == BrickAnimationType.FullDown)
+            {
+                _animationQueue.Enqueue(new BrickAnimationDoTween(_converter, _data, time));
+            }
+            else
+            {
+                _animationQueue.Enqueue(new BrickAnimationDoTween(_converter, _data, time));
+            }
 
             CheckAnimations();
         }

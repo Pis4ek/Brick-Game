@@ -1,7 +1,5 @@
 ﻿using PlayMode.Map;
-using Services;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PlayMode.Bricks
@@ -9,7 +7,7 @@ namespace PlayMode.Bricks
     public class Brick : IResetableBrick, IControllableBrick
     {
         public event Action OnResetedEvent;
-        public event Action<float> OnMovedEvent;
+        public event Action<BrickAnimationType> OnMovedEvent;
         public event Action OnCanNotFall;
         public event Action OnFullDownMovedEvent;
         public event Action OnFullDownPositionUpdatedEvent;
@@ -51,7 +49,7 @@ namespace PlayMode.Bricks
             {
                 if (_mover.Move(Vector2Int.down))
                 {
-                    OnMovedEvent?.Invoke(0.15f);
+                    OnMovedEvent?.Invoke(BrickAnimationType.Down);
                     return true;
                 }
                 else
@@ -70,7 +68,7 @@ namespace PlayMode.Bricks
             {
                 _downPositionCalculator.FallToDown();
                 _data.IsLanded = true;
-                OnMovedEvent?.Invoke(0.15f);
+                OnMovedEvent?.Invoke(BrickAnimationType.FullDown);
                 return true;
             }
             return false;
@@ -84,7 +82,7 @@ namespace PlayMode.Bricks
                 {
                     _downPositionCalculator.RecalculateFullDownPosition();
                     OnFullDownPositionUpdatedEvent?.Invoke();
-                    OnMovedEvent?.Invoke(0.15f);
+                    OnMovedEvent?.Invoke(BrickAnimationType.Side);
                     return true;
                 }
             }
@@ -99,7 +97,7 @@ namespace PlayMode.Bricks
                 {
                     _downPositionCalculator.RecalculateFullDownPosition();
                     OnFullDownPositionUpdatedEvent?.Invoke();
-                    OnMovedEvent?.Invoke(0.15f);
+                    OnMovedEvent?.Invoke(BrickAnimationType.Side);
                     return true;
                 }
             }
@@ -114,7 +112,7 @@ namespace PlayMode.Bricks
                 {
                     _downPositionCalculator.RecalculateFullDownPosition();
                     OnFullDownPositionUpdatedEvent?.Invoke();
-                    OnMovedEvent?.Invoke(0.15f);
+                    OnMovedEvent?.Invoke(BrickAnimationType.Rotate);
                     return true;
                 }
             }

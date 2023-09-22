@@ -16,7 +16,6 @@ namespace Services.Timer
         {
             _data = data;
 
-            //gameState.OnGameStartedEvent += () => { _data.IsTimerStarted = true; };
             gameState.State.Subscribe(value =>
             {
                 if (value == GameStateType.Playing)

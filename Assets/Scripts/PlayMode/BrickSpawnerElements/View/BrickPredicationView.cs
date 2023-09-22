@@ -1,12 +1,14 @@
 ﻿using PlayMode.BrickSpawnerElements;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PlayMode.View
 {
     public class BrickPredicationView : MonoBehaviour
     {
-        [SerializeField] BrickVisualizationGOWidget _nextBrickWidget;
-        [SerializeField] BrickVisualizationGOWidget _postNextBrickWidget;
+        [SerializeField] BrickVisualizationImageWidget _nextBrickWidget;
+        [SerializeField] BrickVisualizationImageWidget _postNextBrickWidget;
+        [SerializeField] Button _saveButton;
 
         private ISpawnerData _data;
 

@@ -21,6 +21,7 @@ public class PlayModeEntryPoint : MonoBehaviour
     [SerializeField] Text _initTimeText;
 
     private GameStateHolder _gameStateHolder = new GameStateHolder();
+    private CompositeDisposable disposables;
 
     private async void Start()
     {
@@ -72,9 +73,9 @@ public class PlayModeEntryPoint : MonoBehaviour
 
         var pauseInput = _interfaceGameObject.GetComponentInChildren<PauseInput>();
 
-        var worldSpaceUINode = _interfaceGameObject.GetComponentInChildren<WorldSpaceUINode>()
+        var worldSpaceUINode = _interfaceGameObject.GetComponentInChildren<GamePlayUINode>()
             .Init(brickSpawningHolder, brickSpawnerData, scoreData, timerData, levelData, gameResultCalculator);
-        var screenSpaceUINode = _interfaceGameObject.GetComponentInChildren<ScreenSpaceUINode>().Init(brick, timerData, _gameStateHolder);
+        var screenSpaceUINode = _interfaceGameObject.GetComponentInChildren<InputUINode>().Init(brick, timerData, _gameStateHolder);
 
         var uiController = new UIController(_gameStateHolder, screenSpaceUINode, worldSpaceUINode);
         #endregion
