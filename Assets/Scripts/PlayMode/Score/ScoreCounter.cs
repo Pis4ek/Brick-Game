@@ -1,7 +1,6 @@
 ﻿using PlayMode.Map;
 using Services;
 using Services.Timer;
-using System;
 
 namespace PlayMode.Score
 {
@@ -14,9 +13,9 @@ namespace PlayMode.Score
             _data = data;
             //timer.OnSecondTickedEvent += delegate () { _data.Score += 1; };
 
-            blockMap.OnBlocksAddedEvent += delegate (int count) { _data.Score += 1 * count; };
+            blockMap.OnBlocksAddedEvent += delegate (int count) { _data.score.Value += 1 * count; };
 
-            blockMap.OnLinesDestroyedEvent += delegate (int count) { _data.Score += 10 * count * count; };
+            blockMap.OnLinesDestroyedEvent += delegate (int count) { _data.score.Value += 10 * count * count; };
         }
     }
 }

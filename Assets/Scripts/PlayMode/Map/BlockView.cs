@@ -16,6 +16,9 @@ namespace PlayMode.Map
                 _block.OnValueChangedEvent += MoveBlock;
                 _block.OnDestroyedEvent += delegate ()
                 {
+                    var effect = _blockMapData._vfxPool.GetElement();
+                    effect.transform.position = _converter.MapCoordinatesToWorld(_block.Coordinates) - new Vector3(0, 0, 1);
+                    effect.Play();
                     _block = null;
                     GameObject.SetActive(false);
                 };
@@ -26,6 +29,7 @@ namespace PlayMode.Map
 
         private Block _block;
         private CoordinateConverter _converter;
+        BlockMapData _blockMapData;
 
         private void Awake()
         {
@@ -33,12 +37,13 @@ namespace PlayMode.Map
             Renderer = GameObject.GetComponent<MeshRenderer>();
         }
 
-        public void Init(Block block, IReadonlyBrickPart blockData, CoordinateConverter converter)
+        public void Init(Block block, IReadonlyBrickPart blockData, CoordinateConverter converter, BlockMapData blockMapData)
         {
             Renderer.material.color = blockData.Renderer.material.color;
             GameObject.transform.position = converter.MapCoordinatesToWorld(blockData.Coordinates);
             Block = block;
             _converter = converter;
+            _blockMapData = blockMapData;
         }
 
         private void MoveBlock()

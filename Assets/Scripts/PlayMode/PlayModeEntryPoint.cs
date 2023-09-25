@@ -14,11 +14,14 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using UnityEngine.VFX;
 
 public class PlayModeEntryPoint : MonoBehaviour
 {
     [SerializeField] GameObject _interfaceGameObject;
     [SerializeField] Text _initTimeText;
+    [SerializeField] VisualEffect _visualEffectDowning;
+    [SerializeField] VisualEffect _visualEffectDestroing;
 
     private GameStateHolder _gameStateHolder = new GameStateHolder();
     private CompositeDisposable disposables;
@@ -49,7 +52,7 @@ public class PlayModeEntryPoint : MonoBehaviour
         #region DATA
         var timerData = new TimerData();
         var brickData = new BrickData();
-        var blockMapData = new BlockMapData(AddObject("BlockMapContainer").transform);
+        var blockMapData = new BlockMapData(AddObject("BlockMapContainer").transform, _visualEffectDestroing);
         var brickSpawnerData = new BrickSpawnerData(blockMapData.MapSize);
         var scoreData = new ScoreData();
         var levelData = new LevelData();
@@ -69,7 +72,7 @@ public class PlayModeEntryPoint : MonoBehaviour
         #endregion
 
         #region VIEW
-        brickGO.AddComponent<BrickView>().Init(brick, converter, brickData);
+        brickGO.AddComponent<BrickView>().Init(brick, converter, brickData, _visualEffectDowning);
 
         var pauseInput = _interfaceGameObject.GetComponentInChildren<PauseInput>();
 

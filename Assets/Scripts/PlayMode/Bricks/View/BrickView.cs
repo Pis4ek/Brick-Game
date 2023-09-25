@@ -7,24 +7,24 @@ namespace PlayMode.Bricks
 {
     public class BrickView : MonoBehaviour
     {
-        [SerializeField] VisualEffect _visualEffect;
-
         private Brick _brick;
         private CoordinateConverter _converter;
         private BrickData _data;
-        private Queue<BrickAnimationDoTween> _animationQueue;
+        private Queue<IBrickAnimation> _animationQueue;
         private ObjectPool<Transform> _blockPool;
         private ObjectPool<BlockView> _transparentBlocksPool;
+        private ObjectPool<VisualEffect> _vfxPool;
         private bool _isAnimating = false;
 
-        public BrickView Init(Brick brick, CoordinateConverter converter, BrickData data)
+        public BrickView Init(Brick brick, CoordinateConverter converter, BrickData data, VisualEffect visualEffect)
         {
             var blockPrefab = Resources.Load<GameObject>("BlockObject");
             _blockPool = new ObjectPool<Transform>(blockPrefab.transform, 16, transform, "Block");
             var transparentblockPrefab = Resources.Load<GameObject>("TransparentBlockObject").GetComponent<BlockView>();
             _transparentBlocksPool = new ObjectPool<BlockView>(transparentblockPrefab, 16, transform, "Transparent_block");
+            _vfxPool = new ObjectPool<VisualEffect>(visualEffect, 16, transform, "VFXPoolElement");
 
-            _animationQueue = new Queue<BrickAnimationDoTween>();
+            _animationQueue = new Queue<IBrickAnimation>();
             _brick = brick;
             _converter = converter;
             _data = data;
@@ -48,11 +48,11 @@ namespace PlayMode.Bricks
 
             if (type == BrickAnimationType.FullDown)
             {
-                _animationQueue.Enqueue(new BrickAnimationDoTween(_converter, _data, time));
+                _animationQueue.Enqueue(new FullDownBrickAnim(_converter, _data, time, _vfxPool));
             }
             else
             {
-                _animationQueue.Enqueue(new BrickAnimationDoTween(_converter, _data, time));
+                _animationQueue.Enqueue(new DefaultBrickAnim(_converter, _data, time));
             }
 
             CheckAnimations();

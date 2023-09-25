@@ -49,7 +49,7 @@ namespace PlayMode.Map
                     _data.GameMap[block.Coordinates.y] = new BlockLine(block.Coordinates.y, _converter);
                     _data.GameMap[block.Coordinates.y].OnFulledEvent += OnLineDestroyed;
                 }
-                _data.GameMap[block.Coordinates.y].AddBlock(block, _data._objectPool.GetElement());
+                _data.GameMap[block.Coordinates.y].AddBlock(block, _data._viewPool.GetElement(), _data);
             }
             OnBlocksAddedEvent?.Invoke(shape.Count);
 

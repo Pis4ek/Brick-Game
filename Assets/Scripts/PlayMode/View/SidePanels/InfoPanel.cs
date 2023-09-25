@@ -23,7 +23,7 @@ namespace PlayMode.View
             _timer = timer;
             _level = level;
 
-            _score.OnValueChangedEvent += delegate () { _scoreText.text = $"Score\n{_score.Score:d5}"; };
+            _score.Score.Subscribe(_ => { _scoreText.text = $"Score\n{_score.Score.Value:d5}"; }).AddTo(this);
             _timer.SecondsSinceStart.Subscribe(_ => { _timerText.text = $"Time\n{_timer.GameTime}"; }).AddTo(this);
             _level.Level.Subscribe(_ => { _levelText.text = $"Level\n{_level.Level:d2}"; }).AddTo(this);
 

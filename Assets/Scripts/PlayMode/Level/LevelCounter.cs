@@ -10,7 +10,6 @@ namespace PlayMode.Level
         private CompositeDisposable _disposables = new CompositeDisposable();
         private LevelData _data;
         private IReadOnlyScoreData _scoreData;
-        private int _currentLevelLimit = 10;
 
 
         public LevelCounter(LevelData data, IReadOnlyScoreData scoreData, IReadOnlyTimerData timerData)
@@ -18,25 +17,15 @@ namespace PlayMode.Level
             _data = data;
             _scoreData = scoreData;
 
-            //_scoreData.OnValueChangedEvent += CheckLevelUp;
             timerData.MinutesSinceStart
-                .Where(value => value <= 40)
-                .Subscribe(value => { _data.level.Value = value; })
+                .Where(value => _data.level.Value <= 40)
+                .Subscribe(value => { _data.level.Value++; })
                 .AddTo(_disposables);
         }
 
         public void Dispose()
         {
             _disposables.Clear();
-        }
-
-        private void CheckLevelUp()
-        {
-            if(_scoreData.Score > _currentLevelLimit)
-            {
-                _currentLevelLimit *= 2;
-                _data.level.Value++;
-            }
         }
     }
 }

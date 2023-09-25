@@ -1,12 +1,15 @@
 ﻿using PlayMode.Bricks;
 using System;
 using UnityEngine;
+using UniRx;
 
 namespace PlayMode.Map
 {
     public class BlockLine
     {
         public event Action<int> OnFulledEvent;
+
+        public ReactiveCollection<Block> LineRx;
 
         public int Count
         {
@@ -30,9 +33,11 @@ namespace PlayMode.Map
 
         public BlockLine(int height, CoordinateConverter converter)
         {
+            LineRx = new ReactiveCollection<Block>();
             Line = new Block[10];
             _converter = converter;
             Height = height;
+
         }
 
         public void Destroy()
@@ -45,10 +50,10 @@ namespace PlayMode.Map
             }
         }
 
-        public void AddBlock(IReadonlyBrickPart block, BlockView view)
+        public void AddBlock(IReadonlyBrickPart block, BlockView view, BlockMapData blockMapData)
         {
             Line[block.Coordinates.x] = new Block(block.Coordinates);
-            view.Init(Line[block.Coordinates.x], block, _converter);
+            view.Init(Line[block.Coordinates.x], block, _converter, blockMapData);
 
             Count++;
             if(Count == Line.Length)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PlayMode.Bricks
 {
-    public class BrickAnimationDoTween
+    public class DefaultBrickAnim : IBrickAnimation
     {
         public event Action OnAnimationEndedEvent;
 
@@ -14,7 +14,7 @@ namespace PlayMode.Bricks
         private float _animationTime;
         private int _counter = 0;
 
-        public BrickAnimationDoTween(CoordinateConverter converter, BrickData data, float animationTime)
+        public DefaultBrickAnim(CoordinateConverter converter, BrickData data, float animationTime)
         {
             _converter = converter;
             _data = data;

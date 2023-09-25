@@ -9,7 +9,6 @@ namespace PlayMode.Bricks
         public event Action OnResetedEvent;
         public event Action<BrickAnimationType> OnMovedEvent;
         public event Action OnCanNotFall;
-        public event Action OnFullDownMovedEvent;
         public event Action OnFullDownPositionUpdatedEvent;
 
         private BrickRotator _rotator;

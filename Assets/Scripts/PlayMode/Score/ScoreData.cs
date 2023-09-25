@@ -1,10 +1,11 @@
 ﻿using System;
+using UniRx;
 
 namespace PlayMode.Score
 {
     public class ScoreData : IReadOnlyScoreData
     {
-        public event Action OnValueChangedEvent;
+        /*public event Action OnValueChangedEvent;
 
         public int Score
         {
@@ -16,6 +17,9 @@ namespace PlayMode.Score
             }
         }
 
-        private int _score = 0;
+        private int _score = 0;*/
+
+        public ReactiveProperty<int> score = new ReactiveProperty<int>(0);
+        public IReadOnlyReactiveProperty<int> Score => score;
     }
 }

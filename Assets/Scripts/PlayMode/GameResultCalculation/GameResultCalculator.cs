@@ -29,9 +29,9 @@ namespace PlayMode.GameResultCalculation
 
         private void CalculateResult()
         {
-            GameResult result = new GameResult(_scoreData.Score, _timer.GameTime);
+            GameResult result = new GameResult(_scoreData.Score.Value, _timer.GameTime);
 
-            _leaderboard.TryAddGameResult(_scoreData.Score, _timer.GameTime);
+            _leaderboard.TryAddGameResult(_scoreData.Score.Value, _timer.GameTime);
 
             OnResultCalculated?.Invoke(result);
         }
