@@ -12,7 +12,7 @@ namespace PlayMode.Bricks
         private BrickData _data;
         private Queue<IBrickAnimation> _animationQueue;
         private ObjectPool<Transform> _blockPool;
-        private ObjectPool<BlockView> _transparentBlocksPool;
+        private ObjectPool<BlockObject> _transparentBlocksPool;
         private ObjectPool<VisualEffect> _vfxPool;
         private bool _isAnimating = false;
 
@@ -20,8 +20,8 @@ namespace PlayMode.Bricks
         {
             var blockPrefab = Resources.Load<GameObject>("BlockObject");
             _blockPool = new ObjectPool<Transform>(blockPrefab.transform, 16, transform, "Block");
-            var transparentblockPrefab = Resources.Load<GameObject>("TransparentBlockObject").GetComponent<BlockView>();
-            _transparentBlocksPool = new ObjectPool<BlockView>(transparentblockPrefab, 16, transform, "Transparent_block");
+            var transparentblockPrefab = Resources.Load<GameObject>("TransparentBlockObject").GetComponent<BlockObject>();
+            _transparentBlocksPool = new ObjectPool<BlockObject>(transparentblockPrefab, 16, transform, "Transparent_block");
             _vfxPool = new ObjectPool<VisualEffect>(visualEffect, 16, transform, "VFXPoolElement");
 
             _animationQueue = new Queue<IBrickAnimation>();

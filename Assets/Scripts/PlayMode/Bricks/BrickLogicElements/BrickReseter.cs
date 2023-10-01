@@ -34,7 +34,7 @@ namespace PlayMode.Bricks
                         block.LocalCoordinates = new Vector2Int(x - _data.LocalCenter.x, y - _data.LocalCenter.y);
                         block.Coordinates = _data.GlobalCenter - new Vector2Int(_data.LocalCenter.x - x, _data.LocalCenter.y - y);
 
-                        if(_map.HasBlockInPosition(block.Coordinates.x, block.Coordinates.y))
+                        if(_map.HasBlockInPosition(block.Coordinates))
                         {
                             return false;
                         }

@@ -29,7 +29,7 @@ namespace PlayMode.Bricks
                 foreach (var block in _data.FullDownPosition)
                 {
                     var dY = block.y + 1;
-                    if (_map.HasBlockInPosition(block.x, dY))
+                    if (_map.HasBlockInPosition(new Vector2Int(block.x, dY)))
                     {
                         return;
                     }

@@ -1,32 +1,32 @@
 ﻿using System;
 using UnityEngine;
+using UniRx;
 
 namespace PlayMode.Map
 {
     public class Block
     {
-        public event Action OnValueChangedEvent;
         public event Action OnDestroyedEvent;
 
-        public Vector2Int Coordinates { 
-            get { return _coordinates; }
-            set 
-            {
-                _coordinates = value;
-                OnValueChangedEvent?.Invoke();
-            }
-        }
+        public ReactiveProperty<Vector2Int> Coordinates { get; private set; }
+        public Color Color { get; private set; }
 
-        private Vector2Int _coordinates;
-
-        public Block(Vector2Int coordinates)
+        public Block(Vector2Int coordinates, Color color)
         {
-            Coordinates = coordinates;
+            Coordinates = new ReactiveProperty<Vector2Int>();
+            Coordinates.Value = coordinates;
+            Color = color;
         }
 
         public void Destroy()
         {
             OnDestroyedEvent?.Invoke();
+            Coordinates.Dispose();
+        }
+
+        public override string ToString()
+        {
+            return $"Block at ({Coordinates.Value.x}, {Coordinates.Value.y})";
         }
     }
 }

@@ -48,11 +48,12 @@ public class PlayModeEntryPoint : MonoBehaviour
     private void Init()
     {
         var brickGO = AddObject("Brick");
+        var blockContainer = AddObject("BlockMapContainer");
 
         #region DATA
         var timerData = new TimerData();
         var brickData = new BrickData();
-        var blockMapData = new BlockMapData(AddObject("BlockMapContainer").transform, _visualEffectDestroing);
+        var blockMapData = new BlockMapData(blockContainer.transform, _visualEffectDestroing);
         var brickSpawnerData = new BrickSpawnerData(blockMapData.MapSize);
         var scoreData = new ScoreData();
         var levelData = new LevelData();
@@ -60,7 +61,7 @@ public class PlayModeEntryPoint : MonoBehaviour
 
         #region LOGIC
         var timer = AddObject("Timer").AddComponent<Timer>().Init(timerData, levelData, _gameStateHolder);
-        var gameMap = new BlockMap(blockMapData);
+        var gameMap = new BlockMap();
         var converter = new CoordinateConverter(blockMapData.CellSize, blockMapData.WorldStartMap);
         var scoreCounter = new ScoreCounter(scoreData, gameMap, timerData);
         var levelCounter = new LevelCounter(levelData, scoreData, timerData);
@@ -73,6 +74,8 @@ public class PlayModeEntryPoint : MonoBehaviour
 
         #region VIEW
         brickGO.AddComponent<BrickView>().Init(brick, converter, brickData, _visualEffectDowning);
+
+        var brickView = new BlockMapView(gameMap, converter, blockContainer.transform, _visualEffectDestroing);
 
         var pauseInput = _interfaceGameObject.GetComponentInChildren<PauseInput>();
 

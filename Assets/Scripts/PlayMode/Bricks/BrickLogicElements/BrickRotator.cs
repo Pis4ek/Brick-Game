@@ -49,7 +49,7 @@ namespace PlayMode.Bricks
                 newBlock.Coordinates = block.Coordinates + new Vector2Int(xOffset, yOffset);
                 newBlock.LocalCoordinates = block.LocalCoordinates + new Vector2Int(xOffset, yOffset);
 
-                if (_map.HasBlockInPosition(newBlock.Coordinates.x, newBlock.Coordinates.y))
+                if (_map.HasBlockInPosition(newBlock.Coordinates))
                 {
                     _sideOffset.ConsiderBlock(newBlock.LocalCoordinates.x);
                 }
@@ -70,7 +70,7 @@ namespace PlayMode.Bricks
         {
             foreach (var block in _resultShape)
             {
-                if (_map.HasBlockInPosition(block.Coordinates.x, block.Coordinates.y))
+                if (_map.HasBlockInPosition(block.Coordinates))
                 {
                     return false;
                 }

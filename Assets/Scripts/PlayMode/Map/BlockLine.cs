@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using UniRx;
+using System.Linq;
 
 namespace PlayMode.Map
 {
@@ -9,73 +10,57 @@ namespace PlayMode.Map
     {
         public event Action<int> OnFulledEvent;
 
-        public ReactiveCollection<Block> LineRx;
-
-        public int Count
-        {
-            get { return _count; }
-            private set
-            {
-                _count = value;
-                if (_count == 0) IsClear = true;
-                else if (_count > 0) IsClear = false;
-                if (_count == Line.Length) IsFull = true;
-                else if (_count < Line.Length) IsFull = false;
-            }
-        }
-        public bool IsFull { get; private set; } = false;
-        public bool IsClear { get; private set; } = true;
+        public ReactiveDictionary<int, Block> Blocks { get; private set; }
+        public int Count => Blocks.Count;
         public int Height { get; private set; }
 
-        private Block[] Line;
-        private CoordinateConverter _converter;
-        private int _count;
-
-        public BlockLine(int height, CoordinateConverter converter)
+        public BlockLine(int height)
         {
-            LineRx = new ReactiveCollection<Block>();
-            Line = new Block[10];
-            _converter = converter;
+            Blocks = new ReactiveDictionary<int, Block>();
             Height = height;
-
         }
 
         public void Destroy()
         {
-            for(int i = 0; i < Line.Length; i++)
+            var keys = Blocks.Keys.ToArray();
+            foreach (var key in keys)
             {
-                Line[i].Destroy();
-                Line[i] = null;
-                Count--;
+                Blocks[key].Destroy();
+                Blocks.Remove(key);
             }
+
+            Blocks.Dispose();
+            Blocks.Clear();
         }
 
-        public void AddBlock(IReadonlyBrickPart block, BlockView view, BlockMapData blockMapData)
+        public void AddBlock(IReadonlyBrickPart blockInfo)
         {
-            Line[block.Coordinates.x] = new Block(block.Coordinates);
-            view.Init(Line[block.Coordinates.x], block, _converter, blockMapData);
+            var block = new Block(blockInfo.Coordinates, blockInfo.Renderer.sharedMaterial.color);
+            Blocks.Add(block.Coordinates.Value.x, block);
 
-            Count++;
-            if(Count == Line.Length)
+            if (Blocks.Count == 10)
             {
-                OnFulledEvent?.Invoke(Height);
                 Destroy();
+                OnFulledEvent?.Invoke(Height);
+
             }
         }
 
         public bool HasBlock(int index)
         {
-            return Line[index] != null;
+            if (Blocks.ContainsKey(index))
+            {
+                return true;
+            }
+            return false;
+
         }
 
         public void SetNewHeight(int height)
         {
-            foreach (var block in Line)
+            foreach (var block in Blocks)
             {
-                if(block != null)
-                {
-                    block.Coordinates = new Vector2Int(block.Coordinates.x, height);
-                }
+                block.Value.Coordinates.Value = new Vector2Int(block.Value.Coordinates.Value.x, height);
             }
             Height = height;
         }

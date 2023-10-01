@@ -27,7 +27,7 @@ namespace PlayMode.Bricks
 
                 newBlock.Coordinates = new Vector2Int(dX, dY);
 
-                if(_map.HasBlockInPosition(dX, dY))
+                if(_map.HasBlockInPosition(newBlock.Coordinates))
                 {
                     return false;
                 }

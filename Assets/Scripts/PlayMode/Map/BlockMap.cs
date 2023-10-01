@@ -1,75 +1,82 @@
 ﻿using PlayMode.Bricks;
-using Services;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 namespace PlayMode.Map
 {
-    public class BlockMap : IService, IBlockMapActions
+    public class BlockMap : IBlockMapActions
     {
         public event Action<int> OnBlocksAddedEvent;
         public event Action<int> OnLinesDestroyedEvent;
 
-        public BlockMapData Data => _data;
+        public ReactiveDictionary<int, BlockLine> Lines;
 
-        private BlockMapData _data;
-        private CoordinateConverter _converter;
-        private BlockMapLinesChecker _linesChecker;
+        public Vector2Int MapSize { get; private set; } = new Vector2Int(10, 15);
+        public Vector3 WorldStartMap { get; private set; } = new Vector3(-4.5f, 6.5f, -0.5f);
+        public float CellSize { get; private set; } = 1f;
 
-        public BlockMap(BlockMapData data)
+        private int _destroyedLinesCount = 0;
+        private BlockMapLinesFallingChecker _linesChecker;
+
+        public BlockMap()
         {
-            _data = data;
-            _converter = new CoordinateConverter(_data.CellSize, _data.WorldStartMap);
-            _linesChecker = new BlockMapLinesChecker(_data.GameMap, _converter);
+            Lines = new ReactiveDictionary<int, BlockLine>();
+            _linesChecker = new BlockMapLinesFallingChecker(Lines, MapSize);
         }
 
-        public bool HasBlockInPosition(int X, int Y)
+        public bool HasBlockInPosition(Vector2Int coordinates)
         {
-            try
-            {
-                if (X >= _data.MapSize.x || X < 0)
-                    return true;
-                if (_data.GameMap[Y] == null)
-                    return false;
-                return _data.GameMap[Y].HasBlock(X);
-            }
-            catch (IndexOutOfRangeException)
-            {
+            if (CheckCoordinateValidity(coordinates) == false)
                 return true;
-            }
+            if (Lines.ContainsKey(coordinates.y) && Lines[coordinates.y].HasBlock(coordinates.x))
+                return true;
+
+            return false;
         }
 
         public void AddBrick(IReadOnlyList<IReadonlyBrickPart> shape)
         {
             foreach(var block in shape)
             {
-                if(_data.GameMap[block.Coordinates.y] == null)
+                var height = block.Coordinates.y;
+                if (Lines.ContainsKey(height))
                 {
-                    _data.GameMap[block.Coordinates.y] = new BlockLine(block.Coordinates.y, _converter);
-                    _data.GameMap[block.Coordinates.y].OnFulledEvent += OnLineDestroyed;
+                    Lines[height].AddBlock(block);
                 }
-                _data.GameMap[block.Coordinates.y].AddBlock(block, _data._viewPool.GetElement(), _data);
+                else
+                {
+                    var newLine = new BlockLine(block.Coordinates.y);
+                    Lines.Add(height, newLine);
+                    Lines[height].OnFulledEvent += OnLineDestroyed;
+                    Lines[height].AddBlock(block);
+                }
             }
             OnBlocksAddedEvent?.Invoke(shape.Count);
 
-            CheckDestroyedLines();
-        }
-
-        private void CheckDestroyedLines()
-        {
-            if (_data._destroyedLinesCount > 0)
+            if (_destroyedLinesCount > 0)
             {
-                OnLinesDestroyedEvent?.Invoke(_data._destroyedLinesCount);
-                _linesChecker.CheckLines();
+                OnLinesDestroyedEvent?.Invoke(_destroyedLinesCount);
+                _linesChecker.CheckLinesFalling();
             }
-            _data._destroyedLinesCount = 0;
+            _destroyedLinesCount = 0;
         }
 
         private void OnLineDestroyed(int height)
         {
-            _data._destroyedLinesCount++;
-            _data.GameMap[height] = null;
+            _destroyedLinesCount++;
+            Lines.Remove(height);
+        }
+
+        private bool CheckCoordinateValidity(Vector2Int coordinates)
+        {
+            if (coordinates.x >= MapSize.x || coordinates.x < 0)
+                return false;
+            if (coordinates.y >= MapSize.y || coordinates.y < 0)
+                return false;
+
+            return true;
         }
     }
 }

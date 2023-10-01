@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool<T> where T : Component
+public class ObjectPool<T> : IEnumerable where T : Component
 {
     public T PoolPrefab { get; }
     public bool AutoExpand { get; set; } = false;
@@ -86,6 +87,11 @@ public class ObjectPool<T> where T : Component
 
         _pool.Add(createdObject);
         return createdObject;
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+        return _pool.GetEnumerator();
     }
 }
 
