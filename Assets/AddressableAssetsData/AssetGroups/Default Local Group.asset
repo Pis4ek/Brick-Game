@@ -25,6 +25,18 @@ MonoBehaviour:
     m_Address: UISheet
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 39dd0f9bac2177a418896cbb9094adc0
+    m_Address: BlockDestroingEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 767e7acbf914c4844955718c8f19b916
+    m_Address: BlockObject
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f49c592955b43c94dbe50c5423b46c07
+    m_Address: BrickDownDustEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: be588b01e12a01b429b451e098f11f99, type: 2}
   m_SchemaSet:

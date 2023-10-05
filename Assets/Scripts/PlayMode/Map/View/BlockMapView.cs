@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.VFX;
 
 namespace PlayMode.Map
@@ -26,14 +27,24 @@ namespace PlayMode.Map
             SubscribeAllEvents();
         }
 
-        private void CreatePools(Transform blockContainer, VisualEffect _destroingEffect)
+        private async void CreatePools(Transform blockContainer, VisualEffect _destroingEffect)
         {
-            var prefab = Resources.Load<GameObject>("BlockObject").GetComponent<BlockObject>();
+            var handle = Addressables.LoadAssetAsync<GameObject>("BlockObject");
+            await handle.Task;
+            var prefab = handle.Result.GetComponent<BlockObject>();
+
+            //var prefab = Resources.Load<GameObject>("BlockObject").GetComponent<BlockObject>();
             _objPool = new ObjectPool<BlockObject>(prefab, 100, blockContainer, "BlockViewObject");
             _objPool.AutoExpand = true;
 
-            _vfxPool = new ObjectPool<VisualEffect>(_destroingEffect, 50, blockContainer, "EffectObject");
+            var destroyEffectHandle = Addressables.LoadAssetAsync<GameObject>("BlockDestroingEffect");
+            await destroyEffectHandle.Task;
+            var destroyEffect = destroyEffectHandle.Result.GetComponent<VisualEffect>();
+
+            _vfxPool = new ObjectPool<VisualEffect>(destroyEffect, 50, blockContainer, "EffectObject");
             _vfxPool.AutoExpand = true;
+
+            Addressables.ReleaseInstance(destroyEffectHandle);
         }
         private void SubscribeAllEvents()
         {

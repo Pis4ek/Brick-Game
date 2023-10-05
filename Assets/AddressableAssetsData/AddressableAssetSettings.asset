@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
   m_DefaultGroup: fe1ffef4de9fc7b4a99133349481d19a
-  m_CachedHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0

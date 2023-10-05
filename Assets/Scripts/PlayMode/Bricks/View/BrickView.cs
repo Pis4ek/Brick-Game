@@ -1,6 +1,7 @@
 ﻿using PlayMode.Map;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.VFX;
 
 namespace PlayMode.Bricks
@@ -18,12 +19,7 @@ namespace PlayMode.Bricks
 
         public BrickView Init(Brick brick, CoordinateConverter converter, BrickData data, VisualEffect visualEffect)
         {
-            var blockPrefab = Resources.Load<GameObject>("BlockObject");
-            _blockPool = new ObjectPool<Transform>(blockPrefab.transform, 16, transform, "Block");
-            var transparentblockPrefab = Resources.Load<GameObject>("TransparentBlockObject").GetComponent<BlockObject>();
-            _transparentBlocksPool = new ObjectPool<BlockObject>(transparentblockPrefab, 16, transform, "Transparent_block");
-            _vfxPool = new ObjectPool<VisualEffect>(visualEffect, 16, transform, "VFXPoolElement");
-
+            CreatePools();
             _animationQueue = new Queue<IBrickAnimation>();
             _brick = brick;
             _converter = converter;
@@ -40,6 +36,22 @@ namespace PlayMode.Bricks
             };
 
             return this;
+        }
+
+        private async void CreatePools()
+        {
+            var blockPrefab = Resources.Load<GameObject>("BlockObject").GetComponent<BlockObject>();
+            _blockPool = new ObjectPool<Transform>(blockPrefab.transform, 16, transform, "Block");
+
+            var transparentblockPrefab = Resources.Load<GameObject>("TransparentBlockObject").GetComponent<BlockObject>();
+            _transparentBlocksPool = new ObjectPool<BlockObject>(transparentblockPrefab, 16, transform, "Transparent_block");
+
+            var handle = Addressables.LoadAssetAsync<GameObject>("BrickDownDustEffect");
+            await handle.Task;
+            var visualEffect = handle.Result.GetComponent<VisualEffect>();
+            _vfxPool = new ObjectPool<VisualEffect>(visualEffect, 16, transform, "VFXPoolElement");
+            Addressables.ReleaseInstance(handle);
+
         }
 
         private void MoveView(BrickAnimationType type)

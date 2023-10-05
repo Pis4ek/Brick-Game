@@ -24,7 +24,7 @@ public class PlayModeEntryPoint : MonoBehaviour
     [SerializeField] VisualEffect _visualEffectDestroing;
 
     private GameStateHolder _gameStateHolder = new GameStateHolder();
-    private CompositeDisposable disposables;
+    private BrickConfig BrickConfig;
 
     private async void Start()
     {
@@ -36,10 +36,10 @@ public class PlayModeEntryPoint : MonoBehaviour
 
         _initTimeText.text = $"Init time: {stopWatch.ElapsedMilliseconds}";
 
-        /*        if (GloabalServices.Instance.TryGetService<LoadingScreen>(out var loadingScreen))
-                {
-                    await loadingScreen.DisactivateScreen();
-                }*/
+/*        if (GloabalServices.Instance.TryGetService<LoadingScreen>(out var loadingScreen))
+        {
+            await loadingScreen.DisactivateScreen();
+        }*/
 
         _gameStateHolder.state.Value = GameStateType.Playing;
         _gameStateHolder.SendStartGame();
