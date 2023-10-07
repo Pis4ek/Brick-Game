@@ -9,7 +9,7 @@ public class CustomSerialization : PropertyDrawer
     {
         //int sizeX = property.FindPropertyRelative("sizeX").intValue;
         //int sizeY = property.FindPropertyRelative("sizeY").intValue;
-        BoolMatrix2D boolMatrix2D = property.objectReferenceValue as BoolMatrix2D;
+        //BoolMatrix2D boolMatrix2D = property.objectReferenceValue as BoolMatrix2D;
         //SerializedPropertyType propertyType = property.FindPropertyRelative("").type;
 
         EditorGUI.BeginProperty(position, label, property);
@@ -21,7 +21,7 @@ public class CustomSerialization : PropertyDrawer
         Rect rectSizeX = new Rect(position.x, position.y, position.width - 200, EditorGUIUtility.singleLineHeight);
         //EditorGUI.IntField(rectSizeY, sizeY);
         //EditorGUI.IntField(rectSizeX, sizeX);
-        EditorGUI.TextField(rectSizeY, boolMatrix2D.sizeX.ToString());
+        //EditorGUI.TextField(rectSizeY, boolMatrix2D.sizeX.ToString());
         EditorGUI.EndProperty();
     }
 

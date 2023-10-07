@@ -8,16 +8,19 @@ namespace PlayMode.Bricks
 {
     public class BrickView : MonoBehaviour
     {
-        private Brick _brick;
-        private CoordinateConverter _converter;
-        private BrickData _data;
-        private Queue<IBrickAnimation> _animationQueue;
+        [SerializeField] AudioSource _strongThudAudio;
+        [SerializeField] AudioSource _thudAudio;
+
         private ObjectPool<Transform> _blockPool;
         private ObjectPool<BlockObject> _transparentBlocksPool;
         private ObjectPool<VisualEffect> _vfxPool;
+        private Queue<IBrickAnimation> _animationQueue;
+        private CoordinateConverter _converter;
+        private Brick _brick;
+        private BrickData _data;
         private bool _isAnimating = false;
 
-        public BrickView Init(Brick brick, CoordinateConverter converter, BrickData data, VisualEffect visualEffect)
+        public BrickView Init(Brick brick, CoordinateConverter converter, BrickData data)
         {
             CreatePools();
             _animationQueue = new Queue<IBrickAnimation>();
@@ -87,6 +90,7 @@ namespace PlayMode.Bricks
                     }
                     if (_data.IsLanded && _isAnimating == false && _animationQueue.Count == 0)
                     {
+                        _thudAudio.Play();
                         _data.SendBrickLandedEvent();
                     }
                 };

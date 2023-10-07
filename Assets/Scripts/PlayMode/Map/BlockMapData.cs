@@ -10,7 +10,7 @@ namespace PlayMode.Map
         public Vector3 WorldStartMap { get; private set; } = new Vector3(-4.5f, 6.5f, -0.5f);
         public float CellSize { get; private set; } = 1f;
 
-        public BlockMapData(Transform blockContainer, VisualEffect _destroingEffect)
+        public BlockMapData()
         {
         }
     }

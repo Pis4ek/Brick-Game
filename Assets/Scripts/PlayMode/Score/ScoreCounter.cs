@@ -4,11 +4,12 @@ using Services.Timer;
 
 namespace PlayMode.Score
 {
-    public class ScoreCounter : IService
+    public class ScoreCounter
     {
         private ScoreData _data;
 
-        public ScoreCounter(ScoreData data, BlockMap blockMap, IReadOnlyTimerData timer)
+        public ScoreCounter(ScoreData data, BlockMap blockMap, IReadOnlyTimerData timer, 
+            PlayModeConfig playModeConfig)
         {
             _data = data;
             //timer.OnSecondTickedEvent += delegate () { _data.Score += 1; };

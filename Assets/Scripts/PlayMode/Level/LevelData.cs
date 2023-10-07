@@ -5,7 +5,7 @@ namespace PlayMode.Level
 {
     public class LevelData : IReadOnlyLevelData
     {
-        public ReactiveProperty<int> level = new ReactiveProperty<int>(0);
-        public IReadOnlyReactiveProperty<int> Level => level;
+        public ReactiveProperty<float> level = new ReactiveProperty<float>(0);
+        public IReadOnlyReactiveProperty<float> Level => level;
     }
 }

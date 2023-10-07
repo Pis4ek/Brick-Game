@@ -20,11 +20,9 @@ public class PlayModeEntryPoint : MonoBehaviour
 {
     [SerializeField] GameObject _interfaceGameObject;
     [SerializeField] Text _initTimeText;
-    [SerializeField] VisualEffect _visualEffectDowning;
-    [SerializeField] VisualEffect _visualEffectDestroing;
 
     private GameStateHolder _gameStateHolder = new GameStateHolder();
-    private BrickConfig BrickConfig;
+    private PlayModeConfig playModeConfig;
 
     private async void Start()
     {
@@ -47,13 +45,13 @@ public class PlayModeEntryPoint : MonoBehaviour
 
     private void Init()
     {
-        var brickGO = AddObject("Brick");
+        //var brickGO = AddObject("Brick");
         var blockContainer = AddObject("BlockMapContainer");
 
         #region DATA
         var timerData = new TimerData();
         var brickData = new BrickData();
-        var blockMapData = new BlockMapData(blockContainer.transform, _visualEffectDestroing);
+        var blockMapData = new BlockMapData();
         var brickSpawnerData = new BrickSpawnerData(blockMapData.MapSize);
         var scoreData = new ScoreData();
         var levelData = new LevelData();
@@ -63,8 +61,8 @@ public class PlayModeEntryPoint : MonoBehaviour
         var timer = AddObject("Timer").AddComponent<Timer>().Init(timerData, levelData, _gameStateHolder);
         var gameMap = new BlockMap();
         var converter = new CoordinateConverter(blockMapData.CellSize, blockMapData.WorldStartMap);
-        var scoreCounter = new ScoreCounter(scoreData, gameMap, timerData);
-        var levelCounter = new LevelCounter(levelData, scoreData, timerData);
+        var scoreCounter = new ScoreCounter(scoreData, gameMap, timerData, playModeConfig);
+        var levelCounter = new LevelCounter(levelData, scoreData, timerData, playModeConfig);
         var brick = new Brick(gameMap, brickData);
         var brickSpawner = new BrickSpawner(brickSpawnerData, brick, brickData, _gameStateHolder, _gameStateHolder);
         var brickSpawningHolder = new BrickSpawningHolder(brickSpawner, brickSpawnerData);
@@ -73,9 +71,9 @@ public class PlayModeEntryPoint : MonoBehaviour
         #endregion
 
         #region VIEW
-        brickGO.AddComponent<BrickView>().Init(brick, converter, brickData, _visualEffectDowning);
+        gameObject.GetComponentInChildren<BrickView>().Init(brick, converter, brickData);
 
-        var brickView = new BlockMapView(gameMap, converter, blockContainer.transform, _visualEffectDestroing);
+        var brickView = new BlockMapView(gameMap, converter, blockContainer.transform);
 
         var pauseInput = _interfaceGameObject.GetComponentInChildren<PauseInput>();
 

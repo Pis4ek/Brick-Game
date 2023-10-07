@@ -15,19 +15,19 @@ namespace PlayMode.Map
         private BlockMap _blockMap;
 
 
-        public BlockMapView(BlockMap blockMap, CoordinateConverter converter, Transform blockContainer, VisualEffect _destroingEffect)
+        public BlockMapView(BlockMap blockMap, CoordinateConverter converter, Transform blockContainer)
         {
             _lineViews = new Dictionary<BlockLine, BlockLineView>();
 
             _blockMap = blockMap;
             _converter = converter;
 
-            CreatePools(blockContainer, _destroingEffect);
+            CreatePools(blockContainer);
 
             SubscribeAllEvents();
         }
 
-        private async void CreatePools(Transform blockContainer, VisualEffect _destroingEffect)
+        private async void CreatePools(Transform blockContainer)
         {
             var handle = Addressables.LoadAssetAsync<GameObject>("BlockObject");
             await handle.Task;

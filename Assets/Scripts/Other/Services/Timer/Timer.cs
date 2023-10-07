@@ -1,12 +1,11 @@
 using PlayMode;
 using PlayMode.Level;
-using System;
 using UniRx;
 using UnityEngine;
 
 namespace Services.Timer
 {
-    public class Timer : MonoBehaviour, IService
+    public class Timer : MonoBehaviour
     {
         private TimerData _data;
         private float _fallingTimeCounter = 0;
@@ -24,7 +23,7 @@ namespace Services.Timer
                     _data.IsTimerStarted = false;
             }).AddTo(disposables);
 
-            levelData.Level.Subscribe(value => { _data.fallingTimeStep.Value = 1 - 0.02f * value; }).AddTo(disposables);
+            levelData.Level.Subscribe(value => { UpdateFallingTimeStep(value); }).AddTo(disposables);
 
             return this;
         }
@@ -54,6 +53,11 @@ namespace Services.Timer
                     _data.SendFallingTimeTick();
                 }
             }
+        }
+
+        private void UpdateFallingTimeStep(float level)
+        {
+            _data.fallingTimeStep.Value = 1 - 0.08f * level;
         }
     }
 }

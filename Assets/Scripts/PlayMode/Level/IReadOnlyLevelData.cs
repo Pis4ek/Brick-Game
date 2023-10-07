@@ -5,6 +5,6 @@ namespace PlayMode.Level
 {
     public interface IReadOnlyLevelData
     {
-        public IReadOnlyReactiveProperty<int> Level { get; }
+        public IReadOnlyReactiveProperty<float> Level { get; }
     }
 }
