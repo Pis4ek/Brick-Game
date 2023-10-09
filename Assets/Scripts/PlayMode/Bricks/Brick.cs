@@ -1,42 +1,45 @@
 ﻿using PlayMode.Map;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PlayMode.Bricks
 {
     public class Brick : IResetableBrick, IControllableBrick
     {
-        public event Action OnResetedEvent;
+        public event Action<Color> OnResetedEvent;
         public event Action<BrickAnimationType> OnMovedEvent;
         public event Action OnCanNotFall;
-        public event Action OnFullDownPositionUpdatedEvent;
+        public event Action<List<Vector2Int>> OnFullDownPositionUpdatedEvent;
+        public event Action OnBrickLandedEvent;
 
+        public BrickShape Shape => _shape;
+        public bool IsLanded { get; private set; }
+
+        private BrickShape _shape  = new BrickShape();
+        private DownPositionCalculator _downPositionCalculator;
         private BrickRotator _rotator;
         private BrickMover _mover;
         private BrickReseter _reseter;
         private BlockMap _map;
-        private BrickData _data;
-        private DownPositionCalculator _downPositionCalculator;
 
-        public Brick(BlockMap map, BrickData data)
+        public Brick(BlockMap map)
         {
             _map = map;
-            _data = data;
-            _rotator = new BrickRotator(_data, map);
-            _mover = new BrickMover(_data, map);
-            _reseter = new BrickReseter(_data, map);
-            _downPositionCalculator = new DownPositionCalculator(_data, map);
-
-            _data.OnBrickLandedEvent += () => _map.AddBrick(_data.Shape);
+            _rotator = new BrickRotator(_shape, map);
+            _mover = new BrickMover(_shape, map);
+            _reseter = new BrickReseter(_shape, map);
+            _downPositionCalculator = new DownPositionCalculator(_shape, map);
         }
 
         public bool ResetBrick(Vector2Int startCoordiantes, BrickConfig config)
         {
-            if(_reseter.Reset(startCoordiantes, config))
+            IsLanded = false;
+            if (_reseter.Reset(startCoordiantes, config))
             {
-                OnResetedEvent?.Invoke();
-                _downPositionCalculator.RecalculateFullDownPosition();
-                OnFullDownPositionUpdatedEvent?.Invoke();
+                OnResetedEvent?.Invoke(config.Color);
+                var fullDownPosition = _downPositionCalculator.RecalculateFullDownPosition();
+                OnFullDownPositionUpdatedEvent?.Invoke(fullDownPosition);
                 return true;
             }
             return false;
@@ -44,7 +47,7 @@ namespace PlayMode.Bricks
 
         public bool DownMove()
         {
-            if (_data.IsLanded == false)
+            if (IsLanded == false)
             {
                 if (_mover.Move(Vector2Int.down))
                 {
@@ -53,7 +56,7 @@ namespace PlayMode.Bricks
                 }
                 else
                 {
-                    _data.IsLanded = true;
+                    IsLanded = true;
                     OnCanNotFall?.Invoke();
                 }
             }
@@ -63,10 +66,10 @@ namespace PlayMode.Bricks
 
         public bool FullDownMove()
         {
-            if (_data.IsLanded == false)
+            if (IsLanded == false)
             {
                 _downPositionCalculator.FallToDown();
-                _data.IsLanded = true;
+                IsLanded = true;
                 OnMovedEvent?.Invoke(BrickAnimationType.FullDown);
                 return true;
             }
@@ -75,12 +78,12 @@ namespace PlayMode.Bricks
 
         public bool LeftMove()
         {
-            if (_data.IsLanded == false)
+            if (IsLanded == false)
             {
                 if (_mover.Move(Vector2Int.left))
                 {
-                    _downPositionCalculator.RecalculateFullDownPosition();
-                    OnFullDownPositionUpdatedEvent?.Invoke();
+                    var fullDownPosition = _downPositionCalculator.RecalculateFullDownPosition();
+                    OnFullDownPositionUpdatedEvent?.Invoke(fullDownPosition);
                     OnMovedEvent?.Invoke(BrickAnimationType.Side);
                     return true;
                 }
@@ -90,12 +93,12 @@ namespace PlayMode.Bricks
 
         public bool RightMove()
         {
-            if (_data.IsLanded == false)
+            if (IsLanded == false)
             {
                 if (_mover.Move(Vector2Int.right))
                 {
-                    _downPositionCalculator.RecalculateFullDownPosition();
-                    OnFullDownPositionUpdatedEvent?.Invoke();
+                    var fullDownPosition = _downPositionCalculator.RecalculateFullDownPosition();
+                    OnFullDownPositionUpdatedEvent?.Invoke(fullDownPosition);
                     OnMovedEvent?.Invoke(BrickAnimationType.Side);
                     return true;
                 }
@@ -105,18 +108,25 @@ namespace PlayMode.Bricks
 
         public bool Rotate()
         {
-            if (_data.IsLanded == false)
+            if (IsLanded == false)
             {
                 if (_rotator.Rotate())
                 {
-                    _downPositionCalculator.RecalculateFullDownPosition();
-                    OnFullDownPositionUpdatedEvent?.Invoke();
+                    var fullDownPosition = _downPositionCalculator.RecalculateFullDownPosition();
+                    OnFullDownPositionUpdatedEvent?.Invoke(fullDownPosition);
                     OnMovedEvent?.Invoke(BrickAnimationType.Rotate);
                     return true;
                 }
             }
 
             return false;
+        }
+
+        public void SendBrickLandedEvent()
+        {
+            IsLanded = false;
+            _map.AddBrick(_shape.Blocks);
+            OnBrickLandedEvent?.Invoke();
         }
     }
 }

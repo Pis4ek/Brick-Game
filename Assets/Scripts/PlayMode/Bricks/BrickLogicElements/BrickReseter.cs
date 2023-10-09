@@ -1,5 +1,4 @@
 ﻿using PlayMode.Map;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,21 +6,20 @@ namespace PlayMode.Bricks
 {
     public class BrickReseter
     {
-        private BrickData _data;
+        private BrickShape _shape;
         private BlockMap _map;
 
-        public BrickReseter(BrickData data, BlockMap map)
+        public BrickReseter(BrickShape shape, BlockMap map)
         {
-            _data = data;
+            _shape = shape;
             _map = map;
         }
 
         public bool Reset(Vector2Int startCoordiantes, BrickConfig config)
         {
-            _data.IsLanded = false;
-            _data.Color = config.Color;
-            _data.LocalCenter = config.LocalCenter;
-            _data.GlobalCenter = startCoordiantes + config.LocalCenter;
+            //_data.Color = config.Color;
+            var localCenter = config.LocalCenter;
+            var globalCenter = startCoordiantes + config.LocalCenter;
             var shape = new List<BrickPart>(16);
 
             for (int y = 0; y < 4; y++)
@@ -31,8 +29,8 @@ namespace PlayMode.Bricks
                     if (config.shape[y, x])
                     {
                         var block = new BrickPart();
-                        block.LocalCoordinates = new Vector2Int(x - _data.LocalCenter.x, y - _data.LocalCenter.y);
-                        block.Coordinates = _data.GlobalCenter - new Vector2Int(_data.LocalCenter.x - x, _data.LocalCenter.y - y);
+                        block.LocalCoordinates = new Vector2Int(x - localCenter.x, y - localCenter.y);
+                        block.Coordinates = globalCenter - new Vector2Int(localCenter.x - x, localCenter.y - y);
 
                         if(_map.HasBlockInPosition(block.Coordinates))
                         {
@@ -50,11 +48,11 @@ namespace PlayMode.Bricks
 
         private void ApplyShape(List<BrickPart> newShape, BrickConfig config)
         {
-            _data.Shape = new List<BrickPart>(newShape.Count);
+            _shape.Blocks = new List<BrickPart>(newShape.Count);
 
             for (int i = 0; i < newShape.Count; i++)
             {
-                _data.Shape.Add(newShape[i]);
+                _shape.Blocks.Add(newShape[i]);
             }
         }
     }

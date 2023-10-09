@@ -14,16 +14,16 @@ namespace PlayMode
         private IGameState _gameState;
         private IGameEndingControl _gameEndingControl;
 
-        public BrickSpawner(BrickSpawnerData data, IResetableBrick brick, 
-            IReadOnlyBrickData brickData, IGameState gameState, IGameEndingControl gameEndingControl)
+        public BrickSpawner(BrickSpawnerData data, IResetableBrick resetableBrick, 
+            IGameState gameState, IGameEndingControl gameEndingControl, Brick brick)
         {
-            _brick = brick;
+            _brick = resetableBrick;
             _data = data;
             _gameState = gameState;
             _brickPredicator = new BrickSpawningPredicator(_data);
             _gameEndingControl = gameEndingControl;
 
-            brickData.OnBrickLandedEvent += SpawnNextBrick;
+            brick.OnBrickLandedEvent += SpawnNextBrick;
             gameState.OnGameStartedEvent += SpawnNextBrick;
         }
 

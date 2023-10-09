@@ -17,24 +17,23 @@ namespace PlayMode.Bricks
         private Queue<IBrickAnimation> _animationQueue;
         private CoordinateConverter _converter;
         private Brick _brick;
-        private BrickData _data;
+        private Color _brickColor;
         private bool _isAnimating = false;
 
-        public BrickView Init(Brick brick, CoordinateConverter converter, BrickData data)
+        public BrickView Init(Brick brick, CoordinateConverter converter)
         {
             CreatePools();
             _animationQueue = new Queue<IBrickAnimation>();
             _brick = brick;
             _converter = converter;
-            _data = data;
 
             _brick.OnMovedEvent += MoveView;
             _brick.OnResetedEvent += ResetView;
             _brick.OnFullDownPositionUpdatedEvent += UpdateFallingView;
             _brick.OnCanNotFall += () => {
-                if (_data.IsLanded && _isAnimating == false && _animationQueue.Count == 0)
+                if (_brick.IsLanded && _isAnimating == false && _animationQueue.Count == 0)
                 {
-                    _data.SendBrickLandedEvent();
+                    _brick.SendBrickLandedEvent();
                 }
             };
 
@@ -63,11 +62,11 @@ namespace PlayMode.Bricks
 
             if (type == BrickAnimationType.FullDown)
             {
-                _animationQueue.Enqueue(new FullDownBrickAnim(_converter, _data, time, _vfxPool));
+                _animationQueue.Enqueue(new FullDownBrickAnim(_converter, _brick.Shape.Blocks, time, _vfxPool));
             }
             else
             {
-                _animationQueue.Enqueue(new DefaultBrickAnim(_converter, _data, time));
+                _animationQueue.Enqueue(new DefaultBrickAnim(_converter, _brick.Shape.Blocks, time));
             }
 
             CheckAnimations();
@@ -88,38 +87,39 @@ namespace PlayMode.Bricks
                     {
                         CheckAnimations();
                     }
-                    if (_data.IsLanded && _isAnimating == false && _animationQueue.Count == 0)
+                    if (_brick.IsLanded && _isAnimating == false && _animationQueue.Count == 0)
                     {
                         _thudAudio.Play();
-                        _data.SendBrickLandedEvent();
+                        _brick.SendBrickLandedEvent();
                     }
                 };
             }
 
         }
 
-        private void ResetView()
+        private void ResetView(Color color)
         {
+            _brickColor = color;
             _isAnimating = false;
 
             _blockPool.HideAllElements();
-            foreach (var block in _data.Shape)
+            foreach (var block in _brick.Shape.Blocks)
             {
                 block.GameObject = _blockPool.GetElement().gameObject;
                 block.GameObject.transform.position = _converter.MapCoordinatesToWorld(block.Coordinates);
 
-                block.Renderer.material.color = _data.Color;
+                block.Renderer.material.color = color;
             }
         }
 
-        private void UpdateFallingView()
+        private void UpdateFallingView(List<Vector2Int> position)
         {
             _transparentBlocksPool.HideAllElements();
-            for (int i = 0; i < _data.Shape.Count; i++)
+            for (int i = 0; i < _brick.Shape.Blocks.Count; i++)
             { 
                 var obj = _transparentBlocksPool.GetElement();
-                obj.transform.position = _converter.MapCoordinatesToWorld(_data.FullDownPosition[i]);
-                obj.Renderer.material.color = new Color(_data.Color.r, _data.Color.g, _data.Color.b, 0.2f);
+                obj.transform.position = _converter.MapCoordinatesToWorld(position[i]);
+                obj.Renderer.material.color = new Color(_brickColor.r, _brickColor.g, _brickColor.b, 0.2f);
             }
         }
     }

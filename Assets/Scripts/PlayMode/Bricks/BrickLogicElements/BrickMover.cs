@@ -1,24 +1,25 @@
 ﻿using PlayMode.Map;
 using System.Collections.Generic;
+using UnityEditor.U2D.Path;
 using UnityEngine;
 
 namespace PlayMode.Bricks
 {
     public class BrickMover
     {
-        private BrickData _data;
+        private BrickShape _shape;
         private BlockMap _map;
 
-        public BrickMover(BrickData data, BlockMap map)
+        public BrickMover(BrickShape shape, BlockMap map)
         {
-            _data = data;
+            _shape = shape;
             _map = map;
         }
 
         public bool Move(Vector2Int direction)
         {
-            List<BrickPart> newShape = new List<BrickPart>(_data.Shape.Count);
-            foreach (var block in _data.Shape)
+            List<BrickPart> newShape = new List<BrickPart>(_shape.Blocks.Count);
+            foreach (var block in _shape.Blocks)
             {
                 var dX = block.Coordinates.x + direction.x;
                 var dY = block.Coordinates.y - direction.y;
@@ -40,9 +41,9 @@ namespace PlayMode.Bricks
 
         private void ApplyShape(List<BrickPart> newShape)
         {
-            for (int i = 0; i < _data.Shape.Count; i++)
+            for (int i = 0; i < _shape.Blocks.Count; i++)
             {
-                _data.Shape[i].Coordinates = newShape[i].Coordinates;
+                _shape.Blocks[i].Coordinates = newShape[i].Coordinates;
             }
         }
     }

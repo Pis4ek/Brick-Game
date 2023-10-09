@@ -6,44 +6,48 @@ namespace PlayMode.Bricks
 {
     public class DownPositionCalculator
     {
-        private BrickData _data;
+        private BrickShape _shape;
         private BlockMap _map;
+        private List<Vector2Int> _fullDownPosition;
 
-        public DownPositionCalculator(BrickData data, BlockMap map)
+        public DownPositionCalculator(BrickShape shape, BlockMap map)
         {
-            _data = data;
+            _shape = shape;
             _map = map;
         }
 
 
-        public void RecalculateFullDownPosition()
+        public List<Vector2Int> RecalculateFullDownPosition()
         {
-            _data.FullDownPosition = new List<Vector2Int>(_data.Shape.Count);
-            foreach (var block in _data.Shape)
+            _fullDownPosition = new List<Vector2Int>(_shape.Blocks.Count);
+            foreach (var block in _shape.Blocks)
             {
-                _data.FullDownPosition.Add(new Vector2Int(block.Coordinates.x, block.Coordinates.y));
+                _fullDownPosition.Add(new Vector2Int(block.Coordinates.x, block.Coordinates.y));
             }
-            while (true)
+            //while (true)
+            for(int i = 0; i < 30; i++)
             {
-                var positionList = new List<Vector2Int>(_data.Shape.Count);
-                foreach (var block in _data.FullDownPosition)
+                var positionList = new List<Vector2Int>(_shape.Blocks.Count);
+                foreach (var block in _fullDownPosition)
                 {
                     var dY = block.y + 1;
                     if (_map.HasBlockInPosition(new Vector2Int(block.x, dY)))
                     {
-                        return;
+                        return _fullDownPosition;
                     }
                     positionList.Add(new Vector2Int(block.x, dY));
                 }
-                _data.FullDownPosition = positionList;
+                _fullDownPosition = positionList;
             }
+            Debug.Log("I am cringovich");
+            return null;
         }
 
         public void FallToDown()
         {
-            for (int i = 0; i < _data.Shape.Count; i++)
+            for (int i = 0; i < _shape.Blocks.Count; i++)
             {
-                _data.Shape[i].Coordinates = _data.FullDownPosition[i];
+                _shape.Blocks[i].Coordinates = _fullDownPosition[i];
             }
         }
     }

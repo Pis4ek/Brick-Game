@@ -45,12 +45,11 @@ public class PlayModeEntryPoint : MonoBehaviour
 
     private void Init()
     {
-        //var brickGO = AddObject("Brick");
         var blockContainer = AddObject("BlockMapContainer");
 
         #region DATA
         var timerData = new TimerData();
-        var brickData = new BrickData();
+        var brickData = new BrickShape();
         var blockMapData = new BlockMapData();
         var brickSpawnerData = new BrickSpawnerData(blockMapData.MapSize);
         var scoreData = new ScoreData();
@@ -63,15 +62,15 @@ public class PlayModeEntryPoint : MonoBehaviour
         var converter = new CoordinateConverter(blockMapData.CellSize, blockMapData.WorldStartMap);
         var scoreCounter = new ScoreCounter(scoreData, gameMap, timerData, playModeConfig);
         var levelCounter = new LevelCounter(levelData, scoreData, timerData, playModeConfig);
-        var brick = new Brick(gameMap, brickData);
-        var brickSpawner = new BrickSpawner(brickSpawnerData, brick, brickData, _gameStateHolder, _gameStateHolder);
+        var brick = new Brick(gameMap);
+        var brickSpawner = new BrickSpawner(brickSpawnerData, brick, _gameStateHolder, _gameStateHolder, brick);
         var brickSpawningHolder = new BrickSpawningHolder(brickSpawner, brickSpawnerData);
         var leaderboard = new Leaderboard(true);
         var gameResultCalculator = new GameResultCalculator(_gameStateHolder, timerData, scoreData, leaderboard);
         #endregion
 
         #region VIEW
-        gameObject.GetComponentInChildren<BrickView>().Init(brick, converter, brickData);
+        gameObject.GetComponentInChildren<BrickView>().Init(brick, converter);
 
         var brickView = new BlockMapView(gameMap, converter, blockContainer.transform);
 

@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PlayMode.Bricks
@@ -9,29 +10,29 @@ namespace PlayMode.Bricks
         public event Action OnAnimationEndedEvent;
 
         private CoordinateConverter _converter;
-        private BrickData _data;
+        private IReadOnlyList<IReadonlyBrickPart> _shape;
         private Vector3[] _targetPositions;
         private float _animationTime;
         private int _counter = 0;
 
-        public DefaultBrickAnim(CoordinateConverter converter, BrickData data, float animationTime)
+        public DefaultBrickAnim(CoordinateConverter converter, IReadOnlyList<IReadonlyBrickPart> shape, float animationTime)
         {
             _converter = converter;
-            _data = data;
+            _shape = shape;
             _animationTime = animationTime;
 
-            _targetPositions = new Vector3[_data.Shape.Count];
-            for (int i = 0; i < _data.Shape.Count; i++)
+            _targetPositions = new Vector3[_shape.Count];
+            for (int i = 0; i < _shape.Count; i++)
             {
-                _targetPositions[i] = _converter.MapCoordinatesToWorld(_data.Shape[i].Coordinates);
+                _targetPositions[i] = _converter.MapCoordinatesToWorld(_shape[i].Coordinates);
             }
         }
 
         public void Animate()
         {
-            for (int i = 0; i < _data.Shape.Count; i++)
+            for (int i = 0; i < _shape.Count; i++)
             {
-                _data.Shape[i].GameObject.transform.DOMove(_targetPositions[i], _animationTime)
+                _shape[i].GameObject.transform.DOMove(_targetPositions[i], _animationTime)
                     .OnComplete(IncrementCompleteCounter);
             }
         }
@@ -40,7 +41,7 @@ namespace PlayMode.Bricks
         {
             _counter++;
 
-            if (_counter == _data.Shape.Count)
+            if (_counter == _shape.Count)
             {
                 OnAnimationEndedEvent?.Invoke();
             }

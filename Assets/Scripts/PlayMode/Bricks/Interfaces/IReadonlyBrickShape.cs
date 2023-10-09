@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace PlayMode.Bricks
 {
-    public interface IReadonlyBrickShape
+    public interface IReadOnlyBrickShape
     {
-        public IReadOnlyDictionary<Vector2Int, IReadonlyBrickPart> ReadonlyShape { get; }
+        public IReadOnlyList<IReadonlyBrickPart> BlocksShape { get; }
+        public Vector2Int GlobalCenter { get; }
+        public Vector2Int LocalCenter { get; }
+        public Color Color { get; }
     }
 }

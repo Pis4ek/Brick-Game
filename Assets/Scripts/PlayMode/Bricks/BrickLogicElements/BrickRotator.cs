@@ -10,21 +10,21 @@ namespace PlayMode.Bricks
 {
     public class BrickRotator
     {
-        private BrickData _data;
+        private BrickShape _shape;
         private BlockMap _map;
         private List<BrickPart> _resultShape;
         private SideBrickRotationOffsetCalculator _sideOffset;
 
-        public BrickRotator(BrickData data, BlockMap map)
+        public BrickRotator(BrickShape shape, BlockMap map)
         {
-            _data = data;
+            _shape = shape;
             _map = map;
             _sideOffset = new SideBrickRotationOffsetCalculator();
         }
 
         public bool Rotate()
         {
-            _resultShape = new List<BrickPart>(_data.Shape.Count);
+            _resultShape = new List<BrickPart>(_shape.Blocks.Count);
             _sideOffset.Reset();
 
             MakeShape();
@@ -40,7 +40,7 @@ namespace PlayMode.Bricks
 
         private void MakeShape()
         {
-            foreach (var block in _data.Shape)
+            foreach (var block in _shape.Blocks)
             {
                 var newBlock = new BrickPart();
                 var xOffset = -(block.LocalCoordinates.x + block.LocalCoordinates.y);
@@ -80,10 +80,10 @@ namespace PlayMode.Bricks
 
         private void ApplyShape()
         {
-            for (int i = 0; i < _data.Shape.Count; i++)
+            for (int i = 0; i < _shape.Blocks.Count; i++)
             {
-                _data.Shape[i].Coordinates = _resultShape[i].Coordinates;
-                _data.Shape[i].LocalCoordinates = _resultShape[i].LocalCoordinates;
+                _shape.Blocks[i].Coordinates = _resultShape[i].Coordinates;
+                _shape.Blocks[i].LocalCoordinates = _resultShape[i].LocalCoordinates;
             }
         }
     }
