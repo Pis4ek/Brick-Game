@@ -1,4 +1,5 @@
 ﻿using PlayMode.Map;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -11,28 +12,35 @@ namespace PlayMode.Bricks
         [SerializeField] AudioSource _strongThudAudio;
         [SerializeField] AudioSource _thudAudio;
 
-        private ObjectPool<Transform> _blockPool;
-        private ObjectPool<BlockObject> _transparentBlocksPool;
+        private BrickAnimationQueue _queue = new BrickAnimationQueue();
+        private List<BlockObject> _blocks = new List<BlockObject>();
+        private ObjectPool<BlockObject> _blockPool;
         private ObjectPool<VisualEffect> _vfxPool;
-        private Queue<IBrickAnimation> _animationQueue;
         private CoordinateConverter _converter;
         private Brick _brick;
-        private Color _brickColor;
-        private bool _isAnimating = false;
 
         public BrickView Init(Brick brick, CoordinateConverter converter)
         {
             CreatePools();
-            _animationQueue = new Queue<IBrickAnimation>();
             _brick = brick;
             _converter = converter;
 
             _brick.OnMovedEvent += MoveView;
             _brick.OnResetedEvent += ResetView;
-            _brick.OnFullDownPositionUpdatedEvent += UpdateFallingView;
             _brick.OnCanNotFall += () => {
-                if (_brick.IsLanded && _isAnimating == false && _animationQueue.Count == 0)
+                if(_queue.AnimsCount == 0)
                 {
+                    _queue.CurrentAnimation.PlaySound();
+                    _brick.SendBrickLandedEvent();
+                }
+
+            };
+
+            _queue.OnLastAnimEnded += () =>
+            {
+                if (_brick.IsLanded.Value)
+                {
+                    _queue.CurrentAnimation.PlaySound();
                     _brick.SendBrickLandedEvent();
                 }
             };
@@ -43,10 +51,7 @@ namespace PlayMode.Bricks
         private async void CreatePools()
         {
             var blockPrefab = Resources.Load<GameObject>("BlockObject").GetComponent<BlockObject>();
-            _blockPool = new ObjectPool<Transform>(blockPrefab.transform, 16, transform, "Block");
-
-            var transparentblockPrefab = Resources.Load<GameObject>("TransparentBlockObject").GetComponent<BlockObject>();
-            _transparentBlocksPool = new ObjectPool<BlockObject>(transparentblockPrefab, 16, transform, "Transparent_block");
+            _blockPool = new ObjectPool<BlockObject>(blockPrefab, 16, transform, "Block");
 
             var handle = Addressables.LoadAssetAsync<GameObject>("BrickDownDustEffect");
             await handle.Task;
@@ -58,68 +63,32 @@ namespace PlayMode.Bricks
 
         private void MoveView(BrickAnimationType type)
         {
-            var time = 0.15f * (1 - _animationQueue.Count * 0.15f);
+            var time = 0.15f * (1 - _queue.AnimsCount * 0.15f);
+            IBrickAnimation animation;
 
             if (type == BrickAnimationType.FullDown)
             {
-                _animationQueue.Enqueue(new FullDownBrickAnim(_converter, _brick.Shape.Blocks, time, _vfxPool));
+                animation = new FullDownBrickAnim(_converter, _brick.Shape.BlocksShape, 
+                    _blocks, time, _vfxPool, _strongThudAudio);
             }
             else
             {
-                _animationQueue.Enqueue(new DefaultBrickAnim(_converter, _brick.Shape.Blocks, time));
+                animation = new DefaultBrickAnim(_converter, _brick.Shape.BlocksShape, 
+                    _blocks, time, _thudAudio);
             }
-
-            CheckAnimations();
+            _queue.AddAnimation(animation);
         }
 
-        private void CheckAnimations()
+        private void ResetView()
         {
-            if (_isAnimating == false && _animationQueue.Count > 0)
-            {
-                _isAnimating = true;
-                var animation = _animationQueue.Dequeue();
-                animation.Animate();
-
-                animation.OnAnimationEndedEvent += () =>
-                {
-                    _isAnimating = false;
-                    if (_animationQueue.Count > 0)
-                    {
-                        CheckAnimations();
-                    }
-                    if (_brick.IsLanded && _isAnimating == false && _animationQueue.Count == 0)
-                    {
-                        _thudAudio.Play();
-                        _brick.SendBrickLandedEvent();
-                    }
-                };
-            }
-
-        }
-
-        private void ResetView(Color color)
-        {
-            _brickColor = color;
-            _isAnimating = false;
-
             _blockPool.HideAllElements();
-            foreach (var block in _brick.Shape.Blocks)
+            foreach (var block in _brick.Shape.BlocksShape)
             {
-                block.GameObject = _blockPool.GetElement().gameObject;
-                block.GameObject.transform.position = _converter.MapCoordinatesToWorld(block.Coordinates);
+                var blockObj = _blockPool.GetElement();
+                blockObj.gameObject.transform.position = _converter.MapCoordinatesToWorld(block.Coordinates);
 
-                block.Renderer.material.color = color;
-            }
-        }
-
-        private void UpdateFallingView(List<Vector2Int> position)
-        {
-            _transparentBlocksPool.HideAllElements();
-            for (int i = 0; i < _brick.Shape.Blocks.Count; i++)
-            { 
-                var obj = _transparentBlocksPool.GetElement();
-                obj.transform.position = _converter.MapCoordinatesToWorld(position[i]);
-                obj.Renderer.material.color = new Color(_brickColor.r, _brickColor.g, _brickColor.b, 0.2f);
+                blockObj.Renderer.material.color = _brick.Shape.Color;
+                _blocks.Add(blockObj);
             }
         }
     }

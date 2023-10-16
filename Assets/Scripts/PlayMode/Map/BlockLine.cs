@@ -33,9 +33,9 @@ namespace PlayMode.Map
             Blocks.Clear();
         }
 
-        public void AddBlock(IReadonlyBrickPart blockInfo)
+        public void AddBlock(IReadonlyBrickPart blockInfo, Color color)
         {
-            var block = new Block(blockInfo.Coordinates, blockInfo.Renderer.sharedMaterial.color);
+            var block = new Block(blockInfo.Coordinates, color);
             Blocks.Add(block.Coordinates.Value.x, block);
 
             if (Blocks.Count == 10)

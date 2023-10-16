@@ -57,12 +57,14 @@ public class PlayModeEntryPoint : MonoBehaviour
         #endregion
 
         #region LOGIC
-        var timer = AddObject("Timer").AddComponent<Timer>().Init(timerData, levelData, _gameStateHolder);
+        var timer = AddObject("Timer").AddComponent<Timer>().Init(timerData, _gameStateHolder);
         var gameMap = new BlockMap();
         var converter = new CoordinateConverter(blockMapData.CellSize, blockMapData.WorldStartMap);
         var scoreCounter = new ScoreCounter(scoreData, gameMap, timerData, playModeConfig);
         var levelCounter = new LevelCounter(levelData, scoreData, timerData, playModeConfig);
         var brick = new Brick(gameMap);
+        var fallingTimer = AddObject("FallingTimer").AddComponent<FallingTimeCounter>()
+            .Init(brick, levelData, _gameStateHolder);
         var brickSpawner = new BrickSpawner(brickSpawnerData, brick, _gameStateHolder, _gameStateHolder, brick);
         var brickSpawningHolder = new BrickSpawningHolder(brickSpawner, brickSpawnerData);
         var leaderboard = new Leaderboard(true);
@@ -70,15 +72,16 @@ public class PlayModeEntryPoint : MonoBehaviour
         #endregion
 
         #region VIEW
-        gameObject.GetComponentInChildren<BrickView>().Init(brick, converter);
+        var brickView = gameObject.GetComponentInChildren<BrickView>().Init(brick, converter);
+        brickView.gameObject.AddComponent<BrickFallingView>().Init(converter, brick);
 
-        var brickView = new BlockMapView(gameMap, converter, blockContainer.transform);
+        var blockMapView = new BlockMapView(gameMap, converter, blockContainer.transform);
 
         var pauseInput = _interfaceGameObject.GetComponentInChildren<PauseInput>();
 
         var worldSpaceUINode = _interfaceGameObject.GetComponentInChildren<GamePlayUINode>()
             .Init(brickSpawningHolder, brickSpawnerData, scoreData, timerData, levelData, gameResultCalculator);
-        var screenSpaceUINode = _interfaceGameObject.GetComponentInChildren<InputUINode>().Init(brick, timerData, _gameStateHolder);
+        var screenSpaceUINode = _interfaceGameObject.GetComponentInChildren<InputUINode>().Init(brick, timerData, _gameStateHolder, fallingTimer);
 
         var uiController = new UIController(_gameStateHolder, screenSpaceUINode, worldSpaceUINode);
         #endregion

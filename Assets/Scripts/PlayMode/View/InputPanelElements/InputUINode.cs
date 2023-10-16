@@ -10,9 +10,9 @@ namespace PlayMode.View
         private PauseInput _pauseInput;
         private PauseMenuButtonsInput _otherButtons;
 
-        public InputUINode Init(IControllableBrick brick, IReadOnlyTimerData timer, IPauseControl pauseControl)
+        public InputUINode Init(IControllableBrick brick, IReadOnlyTimerData timer, IPauseControl pauseControl, FallingTimeCounter fallingTimeCounter)
         {
-            _brickInput = GetComponentInChildren<BrickInput>(true).Init(brick, timer);
+            _brickInput = GetComponentInChildren<BrickInput>(true).Init(brick, timer, fallingTimeCounter);
             _pauseInput = GetComponentInChildren<PauseInput>(true).Init(pauseControl);
             _otherButtons = GetComponentInChildren<PauseMenuButtonsInput>(true).Init();
 

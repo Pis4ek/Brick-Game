@@ -5,9 +5,6 @@ namespace Services.Timer
 {
     public class TimerData : IReadOnlyTimerData
     {
-        public event Action OnFallingTimeTickedEvent;
-
-        public IReadOnlyReactiveProperty<float> FallingTimeStep => fallingTimeStep;
         public IReadOnlyReactiveProperty<float> TimeSinceStart => timeSinceStart;
         public IReadOnlyReactiveProperty<int> SecondsSinceStart => secondsSinceStart;
         public IReadOnlyReactiveProperty<int> Seconds => seconds;
@@ -20,8 +17,6 @@ namespace Services.Timer
         public ReactiveProperty<int> secondsSinceStart = new ReactiveProperty<int>(0);
         public ReactiveProperty<int> seconds = new ReactiveProperty<int>(0);
         public ReactiveProperty<int> minutesSinceStart = new ReactiveProperty<int>(0);
-
-        public void SendFallingTimeTick() => OnFallingTimeTickedEvent?.Invoke();
         
     }
 }

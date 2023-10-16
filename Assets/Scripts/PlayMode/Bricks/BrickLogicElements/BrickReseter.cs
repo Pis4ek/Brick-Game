@@ -17,7 +17,6 @@ namespace PlayMode.Bricks
 
         public bool Reset(Vector2Int startCoordiantes, BrickConfig config)
         {
-            //_data.Color = config.Color;
             var localCenter = config.LocalCenter;
             var globalCenter = startCoordiantes + config.LocalCenter;
             var shape = new List<BrickPart>(16);

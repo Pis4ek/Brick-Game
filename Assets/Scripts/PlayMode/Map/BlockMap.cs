@@ -36,24 +36,24 @@ namespace PlayMode.Map
             return false;
         }
 
-        public void AddBrick(IReadOnlyList<IReadonlyBrickPart> shape)
+        public void AddBrick(IReadOnlyBrickShape shape)
         {
-            foreach(var block in shape)
+            foreach(var block in shape.BlocksShape)
             {
                 var height = block.Coordinates.y;
                 if (Lines.ContainsKey(height))
                 {
-                    Lines[height].AddBlock(block);
+                    Lines[height].AddBlock(block, shape.Color);
                 }
                 else
                 {
                     var newLine = new BlockLine(block.Coordinates.y);
                     Lines.Add(height, newLine);
                     Lines[height].OnFulledEvent += OnLineDestroyed;
-                    Lines[height].AddBlock(block);
+                    Lines[height].AddBlock(block, shape.Color);
                 }
             }
-            OnBlocksAddedEvent?.Invoke(shape.Count);
+            OnBlocksAddedEvent?.Invoke(shape.BlocksShape.Count);
 
             if (_destroyedLinesCount > 0)
             {

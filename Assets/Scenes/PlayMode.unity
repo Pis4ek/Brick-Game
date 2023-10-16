@@ -8409,8 +8409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800c192bc4ee4d7408fee5309a80782e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _strongThudAudio: {fileID: 114741263}
-  _thudAudio: {fileID: 229224804}
+  _strongThudAudio: {fileID: 229224804}
+  _thudAudio: {fileID: 114741263}
 --- !u!1001 &579456934
 PrefabInstance:
   m_ObjectHideFlags: 0

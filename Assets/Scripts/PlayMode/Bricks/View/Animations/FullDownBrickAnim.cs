@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using PlayMode.Map;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,19 +9,25 @@ namespace PlayMode.Bricks
 {
     public class FullDownBrickAnim : IBrickAnimation
     {
-        public event Action OnAnimationEndedEvent;
+        public event Action OnAnimationEnded;
+
+        public bool IsPlaying { get; private set; } = false;
 
         private ObjectPool<VisualEffect> _vfxPool;
         private CoordinateConverter _converter;
         private IReadOnlyList<IReadonlyBrickPart> _shape;
+        private List<BlockObject> _blocks;
         private Vector3[] _targetPositions;
+        private AudioSource _audioSource;
         private float _animationTime;
         private int _counter = 0;
 
-        public FullDownBrickAnim(CoordinateConverter converter, IReadOnlyList<IReadonlyBrickPart> shape, float animationTime, ObjectPool<VisualEffect> visualEffect)
+        public FullDownBrickAnim(CoordinateConverter converter, IReadOnlyList<IReadonlyBrickPart> shape,
+            List<BlockObject> blocks, float animationTime, ObjectPool<VisualEffect> visualEffect, AudioSource audioSource)
         {
             _converter = converter;
             _shape = shape;
+            _blocks = blocks;
             _animationTime = animationTime;
             _vfxPool = visualEffect;
 
@@ -29,14 +36,19 @@ namespace PlayMode.Bricks
             {
                 _targetPositions[i] = _converter.MapCoordinatesToWorld(_shape[i].Coordinates);
             }
+            _audioSource = audioSource;
         }
 
         public void Animate()
         {
-            for (int i = 0; i < _shape.Count; i++)
+            if (IsPlaying == false)
             {
-                _shape[i].GameObject.transform.DOMove(_targetPositions[i], _animationTime)
-                    .OnComplete(IncrementCompleteCounter);
+                IsPlaying = true;
+                for (int i = 0; i < _shape.Count; i++)
+                {
+                    _blocks[i].transform.DOMove(_targetPositions[i], _animationTime)
+                        .OnComplete(IncrementCompleteCounter);
+                }
             }
         }
 
@@ -53,8 +65,14 @@ namespace PlayMode.Bricks
                     effect.transform.position = _converter.MapCoordinatesToWorld(block.Coordinates) - new Vector3(0, 0.5f, 0.5f);
                     effect.Play();
                 }
-                OnAnimationEndedEvent?.Invoke();
+                OnAnimationEnded?.Invoke();
+                IsPlaying = false;
             }
+        }
+
+        public void PlaySound()
+        {
+            _audioSource.Play();
         }
     }
 }

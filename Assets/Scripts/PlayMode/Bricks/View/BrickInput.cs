@@ -15,11 +15,12 @@ namespace PlayMode.Bricks
 
         private IControllableBrick _brick;
 
-        public BrickInput Init(IControllableBrick brick, IReadOnlyTimerData timerData)
+        public BrickInput Init(IControllableBrick brick, IReadOnlyTimerData timerData, FallingTimeCounter fallingTimeCounter)
         {
             _brick = brick;
 
-            timerData.OnFallingTimeTickedEvent += delegate() { _brick.DownMove(); };
+            //timerData.OnFallingTimeTickedEvent += delegate() { _brick.DownMove(); };
+            fallingTimeCounter.OnFallingStepTicked += delegate () { _brick.DownMove(); };
 
             _lMoveButton.onClick.AddListener(() => _brick.LeftMove());
             _dMoveButton.onClick.AddListener(() => _brick.DownMove());

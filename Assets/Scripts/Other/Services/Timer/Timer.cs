@@ -1,5 +1,4 @@
 using PlayMode;
-using PlayMode.Level;
 using UniRx;
 using UnityEngine;
 
@@ -8,10 +7,9 @@ namespace Services.Timer
     public class Timer : MonoBehaviour
     {
         private TimerData _data;
-        private float _fallingTimeCounter = 0;
         private CompositeDisposable disposables = new CompositeDisposable();
 
-        public Timer Init(TimerData data, IReadOnlyLevelData levelData, IGameState gameState)
+        public Timer Init(TimerData data, IGameState gameState)
         {
             _data = data;
 
@@ -23,8 +21,6 @@ namespace Services.Timer
                     _data.IsTimerStarted = false;
             }).AddTo(disposables);
 
-            levelData.Level.Subscribe(value => { UpdateFallingTimeStep(value); }).AddTo(disposables);
-
             return this;
         }
 
@@ -33,7 +29,6 @@ namespace Services.Timer
             if (_data.IsTimerStarted)
             {
                 _data.timeSinceStart.Value += Time.fixedDeltaTime;
-                _fallingTimeCounter += Time.fixedDeltaTime;
                 if (_data.timeSinceStart.Value > _data.secondsSinceStart.Value + 1)
                 {
                     _data.secondsSinceStart.Value++;
@@ -44,20 +39,7 @@ namespace Services.Timer
                         _data.minutesSinceStart.Value++;
                     }
                 }
-                if (_data.timeSinceStart.Value / 60 > _data.minutesSinceStart.Value + 1)
-                {
-                }
-                if(_fallingTimeCounter > _data.fallingTimeStep.Value)
-                {
-                    _fallingTimeCounter -= _data.fallingTimeStep.Value;
-                    _data.SendFallingTimeTick();
-                }
             }
-        }
-
-        private void UpdateFallingTimeStep(float level)
-        {
-            _data.fallingTimeStep.Value = 1 - 0.08f * level;
         }
     }
 }
