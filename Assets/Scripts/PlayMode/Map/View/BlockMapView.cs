@@ -33,7 +33,7 @@ namespace PlayMode.Map
             await handle.Task;
             var prefab = handle.Result.GetComponent<BlockObject>();
 
-            //var prefab = Resources.Load<GameObject>("BlockObject").GetComponent<BlockObject>();
+            
             _objPool = new ObjectPool<BlockObject>(prefab, 100, blockContainer, "BlockViewObject");
             _objPool.AutoExpand = true;
 
